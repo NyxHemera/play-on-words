@@ -1,0 +1,21 @@
+.wc-wrap {
+	position: relative;
+	width: 50vw;
+	height: 50vh;
+}
+
+#wv-canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+}
+
+#wc-div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	height: 50vh;
+	width: 50vw;
+}

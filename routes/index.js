@@ -37,6 +37,11 @@ router.route('/login')
 		return loginProperty(req, res, next);
 	});
 
+router.route('/wordcloud')
+	.get(function(req, res, next) {
+		res.render('tests/wordcloud.ejs', {});
+	});
+
 // Logout
 router.get('/logout', function(req, res, next) {
 	req.logout();
