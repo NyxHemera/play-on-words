@@ -38,15 +38,22 @@ for (var i = 0; i < wordsArray.length; i++){
 }
 
 function buildArr (wordsObj){
-
+  var newArr = [][];
   var j = 0;
   for (var i=0; i< wordsObj.length; i++){
     if wordsObj[i].display {
-       feedArr[j].
+       newArr[j][0].push (wordsObj[i].text);
+       newArr[j][1].push (wordsObj[i].weight);
+       j ++;
     } //if display is true
-  }
-
+  } //for loop
+  return (newArr);
 
 } //function buildArr
 
 var feedArr = [][];
+
+feedArr = buildArr(wordsObj);
+for (var i = 0; i < feedArr.length; i++){
+    console.log(feedArr[i]);
+}
