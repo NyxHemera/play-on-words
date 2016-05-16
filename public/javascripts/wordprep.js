@@ -1,18 +1,12 @@
 /*this function will create an array of the input "words"*/
- $(function arrayFromUser() {
-      $('.btnClick').click(function () {
-        var randomWords = "Apples* Ora\"nges\"! Man/go";
-        var stripString = randomWords.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
+ function arrayFromUser(userString) {
+        // var randomWords = "Apples* Ora\"nges\"! Man/go";
+        var stripString = userString.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
         var arrayOfWords = stripString.split(' ');
 
-        console.log(arrayOfWords);
-      $('#container').html(arrayOfWords);
+        return arrayOfWords;
 
-       });
-
-    });
-
-
+}
 
 /* This function will:
 *   - sort the input array
@@ -37,39 +31,44 @@ function findDup(words) {
         else {
           newArr.push({text: words[i-1],
                          weight: cnt,
-                         display: false});
+                         display: true});
           cnt = 1;
         }
     }
     return newArr;
 } //function findDup
 
-var wordsObj = [];
-var wordsArray = ["aah", "this", "c", "this", "c", "d", "happy","happy"];
-wordsObj = findDup(wordsArray);
-
-//print out result for testing
-for (var i = 0; i < wordsArray.length; i++){
-    console.log(wordsObj[i]);
-}
-
 function buildArr (wordsObj){
-  var newArr = [][];
-  var j = 0;
-  for (var i=0; i< wordsObj.length; i++){
-    if wordsObj[i].display {
-       newArr[j][0].push (wordsObj[i].text);
-       newArr[j][1].push (wordsObj[i].weight);
-       j ++;
-    } //if display is true
-  } //for loop
+  var newArr = [];
+
+  wordsObj.forEach(function(obj) {
+    if (obj.display) {
+     // var innerArray = [obj.text, obj.weight];
+      // output.push(innerArray);
+      newArr.push([obj.text, obj.weight]);
+    }
+  });
+
   return (newArr);
 
 } //function buildArr
 
-var feedArr = [][];
 
-feedArr = buildArr(wordsObj);
-for (var i = 0; i < feedArr.length; i++){
-    console.log(feedArr[i]);
-}
+var wordsObj = [];
+var wordsArray = ["aah", "this", "c", "this", "c", "d", "happy","happy"]
+var words = "Adele announced on Monday that 25's third single will be Send My Love (To Your New Lover), one of the few songs on the album that have not directly led me to a cold puddle of tears. Unlike its predecessors Hello and When We Were Young, this song is one of the more hopeful and upbeat tracks of the album. If you don't believe me, then what's with all the pretty flowers on Adele's dress, seen here in a preview of the single's music video? ";
+arrayOfWords = arrayFromUser(words);
+
+wordsObj = findDup(arrayOfWords);
+
+//testing array Object build
+wordsObj.forEach(function(item) {
+  console.log(item);
+});
+
+var feedArr = buildArr(wordsObj);
+
+//testing 2D
+feedArr.forEach(function(item){
+  console.log(item);
+});
