@@ -29,7 +29,8 @@ User.remove({})
     },
     first_name: "John",
     last_Name: "Locke",
-    twitter: "faketwit"
+    twitter: "faketwit",
+    clouds: []
   });
   var user2  = new User({
     local: {
@@ -38,7 +39,8 @@ User.remove({})
     },
     first_name: "Lois",
     last_Name: "Lane",
-    twitter: "faketwit2"
+    twitter: "faketwit2",
+    clouds: []
   });
   var user3  = new User({
     local: {
@@ -47,11 +49,39 @@ User.remove({})
     },
     first_name: "Jack",
     last_Name: "Bauer",
-    twitter: "faketwit3"
+    twitter: "faketwit3",
+    clouds: []
   });
+  var cloud1 = new WordCloud({
+    name: "testcloud",
+    tags: [
+      {
+        text: "testtag1",
+        weight: 33
+      },
+      {
+        text: "testtag2",
+        weight: 24
+      },
+      {
+        text: "testtag3",
+        weight: 26
+      }
+    ],
+    palette: 0,
+    private: false,
+    image: "",
+    mask: ""
+  });
+  console.log('test1');
+  console.log(cloud1);
+  console.log(user1.clouds);
+  user1.clouds.push(user1);
+  console.log('test2');
   user1.local.password = user1.encrypt('Password1234');
   user2.local.password = user1.encrypt('Password1234');
   user3.local.password = user1.encrypt('Password1234');
+  console.log('test3');
   return User.create([user1, user2, user3]);
 })
 .then(function(savedUsers) {

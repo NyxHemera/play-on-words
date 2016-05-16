@@ -10,7 +10,7 @@ var User = new mongoose.Schema({
 	first_name: String,
 	last_Name: String,
 	twitter: String,
-	clouds: [wordcloud]
+	clouds: [wordcloud.schema]
 });
 
 User.methods.encrypt = function(password) {
