@@ -13,6 +13,8 @@ var flash = require('connect-flash');
 var homeRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var wordsRouter = require('./routes/wordcloud');
+
 var app = express();
 
 // Connect to DB
@@ -46,6 +48,8 @@ app.use(function(req, res, next) {
 
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
+app.use('/words', wordsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

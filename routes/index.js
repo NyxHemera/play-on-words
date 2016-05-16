@@ -7,6 +7,22 @@ router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express', message: req.flash() });
 });
 
+//users/:id/edit profile chg userprof.ejs
+//????
+router.route('/users/:id/edit')
+	.get(function(req, res, next) {
+		res.render('edituser.ejs', { message: req.flash() });
+	})
+	.post(function(req, res, next) {
+		// var signUpStrategy = passport.authenticate('local-signup', {
+		// 	successRedirect: '/users',
+		// 	failureRedirect: '/signup',
+		// 	failureFlash: true
+		// });
+
+		return signUpStrategy(req, res, next);
+	});
+
 // Signup Page
 router.route('/signup')
 	.get(function(req, res, next) {
@@ -36,6 +52,7 @@ router.route('/login')
 
 		return loginProperty(req, res, next);
 	});
+
 
 router.route('/wordcloud')
 	.get(function(req, res, next) {
