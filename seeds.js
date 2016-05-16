@@ -49,6 +49,9 @@ User.remove({})
     last_Name: "Bauer",
     twitter: "faketwit3"
   });
+  user1.local.password = user1.encrypt('Password1234');
+  user2.local.password = user1.encrypt('Password1234');
+  user3.local.password = user1.encrypt('Password1234');
   return User.create([user1, user2, user3]);
 })
 .then(function(savedUsers) {
