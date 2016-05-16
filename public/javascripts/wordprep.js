@@ -9,28 +9,44 @@
 *
 */
 function findDup(words) {
-
-    var words = words.sort();
+    var newArr = [];
     var cnt = 1;
-    for (var i = 1; i < (words.length); i++) {
+    var words = words.sort();
+
+    for (var i = 1; i <= (words.length); i++) {
+
         if (words[i-1] === words[i]){
             cnt++;
         }
         else {
-          wordsObj.push({text: words[i-1],
+          newArr.push({text: words[i-1],
                          weight: cnt,
                          display: false});
           cnt = 1;
         }
     }
-    return wordsObj;
+    return newArr;
 } //function findDup
 
 var wordsObj = [];
 var wordsArray = ["aah", "this", "c", "this", "c", "d", "happy","happy"];
-findDup(wordsArray);
+wordsObj = findDup(wordsArray);
 
 //print out result for testing
 for (var i = 0; i < wordsArray.length; i++){
     console.log(wordsObj[i]);
 }
+
+function buildArr (wordsObj){
+
+  var j = 0;
+  for (var i=0; i< wordsObj.length; i++){
+    if wordsObj[i].display {
+       feedArr[j].
+    } //if display is true
+  }
+
+
+} //function buildArr
+
+var feedArr = [][];
