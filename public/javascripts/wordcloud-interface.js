@@ -1,19 +1,6 @@
 // True for Canvas, False for HTML
 var output = true;
 var fadeTime = 300;
-var arr = [
-['apple', 22],
-['banana', 24],
-['orange', 18],
-['pomegranate', 20],
-['lemon', 30],
-['tangerine', 26],
-['guava', 16],
-['papaya', 19],
-['coconut', 21],
-['strawberry', 23],
-['melon', 25]
-];
 
 // Called on pageload
 function initWC() {
@@ -23,21 +10,49 @@ function initWC() {
 /*
 	Animations between regenerating not working. Needs work.
 */
-function generateWC() {
-	var wordArr = arr; // Should grab all variables instead
+function generateWC(wordArr) {
 	if(output) {
 /*		$('#wc-canvas').fadeOut(fadeTime, function() {
 			$('#wc-canvas').fadeIn(fadeTime, function(){});
 			generateCanvasWC(wordArr);
 		});*/
-		generateCanvasWC(wordArr);
+		generateCanvasWC(normalizeFontSizes(wordArr));
 	}else{
 /*		$('#wc-div').fadeOut(fadeTime, function() {
 			$('#wc-div').fadeIn(fadeTime, function() {});
 			generateHTMLWC(wordArr);
 		});*/
-		generateHTMLWC(wordArr);
+		generateHTMLWC(normalizeFontSizes(wordArr));
 	}
+}
+
+function normalizeFontSizes(wordArr) {
+	// Temporary measure, need to have min and max
+	var min = 10;
+	var max = 0;
+	var FSBASELINE = 50;
+
+	// Add Floor to numbers
+	for(var i=0; i<wordArr.length; i++) {
+		wordArr[i][1] += min;
+	}
+
+	// Find min and max
+	for(var i=0; i<wordArr.length; i++) {
+		if(wordArr[i][1] < min) {
+			min =  wordArr[i][1];
+		}
+		if(wordArr[i][1] > max) {
+			max = wordArr[i][1];
+		}
+	}
+
+	// Normalize based on percentages
+	for(var i=0; i<wordArr.length; i++) {
+		wordArr[i][1] = FSBASELINE * (wordArr[i][1] / max);
+	}
+
+	return wordArr;
 }
 
 function generateHTMLWC(wordArr) {
@@ -57,12 +72,12 @@ function switchWC() {
 	if(output) {
 		$('#wc-div').fadeOut(fadeTime, function() {
 			$('#wc-canvas').fadeIn(fadeTime, function() {});
-			generateWC();
+			generateWC(getWCArr($('#wc-text-input').val()));
 		});
 	}else {
 		$('#wc-canvas').fadeOut(fadeTime, function() {
 			$('#wc-div').fadeIn(fadeTime, function() {});
-			generateWC();
+			generateWC(getWCArr($('#wc-text-input').val()));
 		});
 	}
 }
@@ -93,7 +108,7 @@ $(document).ready(function() {
 	function resizeCanvas() {
 		canvas.width = window.innerWidth/2;
 		canvas.height = window.innerHeight/2;
-		generateWC();
+		generateWC(getWCArr($('#wc-text-input').val()));
 	}
 
 	// Start with both elements hidden

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+  <script type="text/javascript" src="javascripts/wordcloud2.js"></script>
+  <script type="text/javascript" src="javascripts/wordcloud-interface.js"></script>
+  </head>
+  <body>
+    <div class="bodyUser">
+        <div class="topSection">
+              <button>Create +</button>
+              <div class="userInfo">
+                  <h2><%= user.first_name %></h2>
+              </div>
+              <div class="createCloud">
+
+              </div>
+        </div>
+        <div class="thumbGallery">
+          <ul class="gallery-image">
+            <% for(var i=0; i<user.clouds.length; i++) { %>
+            <li><img src=<%= user.clouds[i].image %>></li>
+            <% } %>
+          </ul>
+        </div>
+    <div>
+  </body>
+</html>
+
