@@ -5,6 +5,7 @@
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript" src="javascripts/wordcloud2.js"></script>
 	<script type="text/javascript" src="javascripts/wordcloud-interface.js"></script>
+	<script type="text/javascript" src="javascripts/wordprep.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylesheets/wc.css">
 </head>
 <body>
@@ -12,5 +13,17 @@
 		<canvas id="wc-canvas"></canvas>
 		<div id="wc-div"></div>	
 	</div>
+	<textarea id="wc-text-input"></textarea>
+	<button id="btn-save">Save</button>
 </body>
+
+<script type="text/javascript">
+	$('#wc-text-input').on('input', function() {
+		generateWC(getWCArr($('#wc-text-input').val()));
+	});
+	$('#btn-save').on('click', function() {
+		console.log("save to DB");
+		console.log(getWCObj($('#wc-text-input').val()));
+	});
+</script>
 </html>
