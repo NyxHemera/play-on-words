@@ -1,11 +1,9 @@
 /*this function will create an array of the input "words"*/
- function arrayFromUser(userString) {
-        // var randomWords = "Apples* Ora\"nges\"! Man/go";
+ function parseWCString(userString) {
         var stripString = userString.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
         var arrayOfWords = stripString.split(' ');
 
         return arrayOfWords;
-
 }
 
 /* This function will:
@@ -18,7 +16,7 @@
 * Output: array of Objects "wordsObj"
 *
 */
-function findDup(words) {
+function createWCObj(words) {
     var newArr = [];
     var cnt = 1;
     var words = words.sort();
@@ -31,44 +29,37 @@ function findDup(words) {
         else {
           newArr.push({text: words[i-1],
                          weight: cnt,
-                         display: true});
+                         private: false});
           cnt = 1;
         }
     }
     return newArr;
-} //function findDup
+} //function createWCObj
 
-function buildArr (wordsObj){
+function createWCArray(wordsObj){
   var newArr = [];
 
   wordsObj.forEach(function(obj) {
-    if (obj.display) {
+    if (!obj.private) {
      // var innerArray = [obj.text, obj.weight];
       // output.push(innerArray);
       newArr.push([obj.text, obj.weight]);
     }
   });
 
-  return (newArr);
+  return newArr;
+} //function createWCArray
 
-} //function buildArr
+// Returns array for the WC Generator
+function getWCArr(textString) {
+  return wordArr = createWCArray(getWCObj(textString));
+}
 
+// Returns an array filled with objects for the DB
+function getWCObj(textString) {
+  return wordObj = createWCObj(parseWCString(textString));
+}
 
-var wordsObj = [];
-var wordsArray = ["aah", "this", "c", "this", "c", "d", "happy","happy"]
 var words = "Adele announced on Monday that 25's third single will be Send My Love (To Your New Lover), one of the few songs on the album that have not directly led me to a cold puddle of tears. Unlike its predecessors Hello and When We Were Young, this song is one of the more hopeful and upbeat tracks of the album. If you don't believe me, then what's with all the pretty flowers on Adele's dress, seen here in a preview of the single's music video? ";
-arrayOfWords = arrayFromUser(words);
-
-wordsObj = findDup(arrayOfWords);
-
-//testing array Object build
-wordsObj.forEach(function(item) {
-  console.log(item);
-});
-
-var feedArr = buildArr(wordsObj);
-
-//testing 2D
-feedArr.forEach(function(item){
-  console.log(item);
-});
+getWCArr(words);
+getWCObj(words);
