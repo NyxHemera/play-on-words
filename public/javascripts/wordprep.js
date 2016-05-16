@@ -1,3 +1,19 @@
+/*this function will create an array of the input "words"*/
+ $(function arrayFromUser() {
+      $('.btnClick').click(function () {
+        var randomWords = "Apples* Ora\"nges\"! Man/go";
+        var stripString = randomWords.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
+        var arrayOfWords = stripString.split(' ');
+
+        console.log(arrayOfWords);
+      $('#container').html(arrayOfWords);
+
+       });
+
+    });
+
+
+
 /* This function will:
 *   - sort the input array
 *   - count the number of times each works appear in the arry
