@@ -5,6 +5,7 @@ var User = require('../models/users');
 // GET Users listing
 router.get('/', function(req, res, next) {
 	console.log(global.currentUser);
+  console.log(currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 
