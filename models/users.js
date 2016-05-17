@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var wordcloud = require('../models/wordclouds');
 
 var User = new mongoose.Schema({
 	local: {
@@ -10,7 +9,7 @@ var User = new mongoose.Schema({
 	first_name: String,
 	last_Name: String,
 	twitter: String,
-	clouds: [wordcloud.schema]
+	clouds: [ {type: mongoose.Schema.ObjectId, ref: 'WordCloud'} ]
 });
 
 User.methods.encrypt = function(password) {

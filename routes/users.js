@@ -20,6 +20,7 @@ function authenticate(req, res, next) {
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
 	console.log(global.currentUser);
+  console.log(currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 

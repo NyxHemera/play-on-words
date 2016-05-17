@@ -49,6 +49,15 @@ User.remove({})
     last_Name: "Bauer",
     twitter: "faketwit3"
   });
+  //user1.clouds.push(cloud1);
+  user1.local.password = user1.encrypt('Password1234');
+  user2.local.password = user1.encrypt('Password1234');
+  user3.local.password = user1.encrypt('Password1234');
+  var users = [user1, user2, user3];
+  return User.create(users);
+})
+.then(function(savedUsers) {
+  console.log('Just saved', savedUsers.length, 'Users');
   var cloud1 = new WordCloud({
     name: "testcloud",
     tags: [
@@ -68,23 +77,14 @@ User.remove({})
     palette: 0,
     private: false,
     image: "",
-    mask: ""
+    mask: "",
+    user: savedUsers[0]._id
   });
-  user1.clouds.push(cloud1);
-  user1.local.password = user1.encrypt('Password1234');
-  user2.local.password = user1.encrypt('Password1234');
-  user3.local.password = user1.encrypt('Password1234');
-  var users = [user1, user2, user3];
-  cloud1.save(function(err) {
-    if(err) {
-      console.log(err);
-    }else {
-      console.log('cloud1 saved');
-    }
+  cloud1.save(function(err, cloud) {
+    savedUsers[0].clouds.push(cloud._id);
+    savedUsers[0].save(function(err) {
+      console.log('saved user with cloud');
+      quit();
+    });
   });
-  return User.create(users);
-})
-.then(function(savedUsers) {
-  console.log('Just saved', savedUsers.length, 'Users.');
-  quit();
 });

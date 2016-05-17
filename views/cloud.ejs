@@ -3,26 +3,40 @@
   <head>
   <title><%= title %></title>
   <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-  <script type="text/javascript" src="javascripts/wordcloud2.js"></script>
-  <script type="text/javascript" src="javascripts/wordcloud-interface.js"></script>
+  <script type="text/javascript" src="/javascripts/wordcloud2.js"></script>
+  <script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
+  <script type="text/javascript" src="/javascripts/wordprep.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" type="text/css" href="stylesheets/wc.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/cloud.css">
   </head>
-  <body>
-    <div class="bodyCloud">
-        <div class="cloudSection">
-
-        </div>
-        <div class="wordDisplay">
+       <body class="cloud-page">
+          <!-- <div class="topSection">
+              <div> </div>
+          </div> -->
+          <div class="cloud-display">
               <div class="wc-wrap">
                 <canvas id="wc-canvas"></canvas>
                 <div id="wc-div"></div>
               </div>
-              <div class="textBox">
+              <div class="text-box-wrap">
+                  <textarea id="wc-text-input"></textarea>
               </div>
-        </div>
-        <div class="textDisplay">
-        </div>
-    <div>
-  </body>
+                <div class="buttons">
+                  <button id="btn-save">Save</button>
+                  <button id="btn-delete">Delete</button>
+                 </div>
+               </div>
+          <div class="seperator"> </div>
+          <div class="word-display"> </div>
+       </body>
+      <script type="text/javascript">
+        $('#wc-text-input').on('input', function() {
+          generateWC(getWCArr($('#wc-text-input').val()));
+        });
+        $('#btn-save').on('click', function() {
+          console.log("save to DB");
+          console.log(getWCObj($('#wc-text-input').val()));
+         });
+      </script>
 </html>

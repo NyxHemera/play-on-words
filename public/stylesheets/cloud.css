@@ -1,0 +1,56 @@
+.cloud-page{
+  background-color: teal;
+  padding-top: 30px;
+
+
+}
+.wc-wrap {
+  position: relative;
+  width: 50vw;
+  min-width: 300px;
+  height: 50vh;
+}
+
+#wv-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+#wc-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  height: 50vh;
+  width: 50vw;
+}
+.cloud-display{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+}
+
+.text-box-wrap{
+  /*position: absolute;*/
+  height: 50vh;
+  width: 50vw;
+  min-width: 300px;
+}
+
+#wc-text-input{
+  max-width: 45vw;
+  width: 45vw;
+  max-height: 40vh;
+  height: 40vh;
+  margin-left: 10px;
+
+}
+
+.buttons{
+  margin-top: 5px;
+
+}

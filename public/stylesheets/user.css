@@ -1,0 +1,22 @@
+.wrap-create {
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.wrap-create > .wc-wrap {
+  width: 50vw;
+  height: 50vh;
+}
+.wrap-create > .wc-entry-wrap {
+  width: 50vw;
+  height: 50vh;
+}
+.wrap-create > .wc-entry-wrap > #wc-text-input {
+  margin: 0 auto;
+  max-width: 48vw;
+  width: 48vw;
+  max-height: 25vw;
+  height: 25vw;
+}
