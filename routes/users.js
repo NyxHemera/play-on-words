@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var Cloud = require('../models/wordclouds');
 
 function makeError(res, message, status) {
   res.statusCode = status;
@@ -19,18 +20,16 @@ function authenticate(req, res, next) {
 }
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-	console.log(global.currentUser);
-  console.log(currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 
 // GET User Profile
 router.get('/:id', authenticate,function(req, res, next) {
-	console.log(req.params);
-	User.findById(req.params.id, function(err, user) {
-		res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
-		//res.send('<h1>User '+ user.first_name +'</h1> <a href="/users/'+ user._id +'/clouds/0">Cloud</a>');
-	});
+  User.findById(req.params.id)
+  .populate('clouds')
+  .exec(function(err, user) {
+    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
+  });
 });
 
 // GET User Edit
@@ -71,17 +70,49 @@ router.put('/:id',authenticate, function(req, res, next) {
   });
 });
 
+router.post('/:id/clouds', authenticate, function(req, res, next) {
+  var CUID = ""+currentUser._id;
+  console.log('req.body');
+  if(CUID === req.params.id) {
+    var cloud = {
+      name: "Default Name",
+      text: req.body.text,
+      user: currentUser._id,
+      palette: 0,
+      private: false,
+      image: req.body.image,
+      mask: "",
+      tags: req.body.tags
+    };
+    Cloud.create([cloud], function(err, clouds) {
+      currentUser.clouds.push(clouds[0]._id);
+      currentUser.save(function(err) {
+        console.log(currentUser.clouds);
+        console.log(currentUser.clouds[currentUser.clouds.length - 1]);
+        var CID = currentUser.clouds[currentUser.clouds.length-1];
+        res.redirect('/users/'+CUID+'/clouds/'+CID);
+      });
+    });
+  }else {
+    res.redirect('/');
+  }
+});
+
 // GET Cloud Page
-router.get('/:id/clouds/:index', function(req, res, next) {
-	console.log(req.params);
-	User.findById(req.params.id, function(err, user) {
-		res.render('cloud.ejs', {
-			user: user,
-			title: 'Cloud-'+user.clouds[req.params.index].name,
-			cloud: user.clouds[req.params.index]
-		});
-		//res.send('<h1>Cloud '+ user.clouds[req.params.index].name +'</h1>');
-	});
+router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
+  var CUID = ""+currentUser._id;
+  if(CUID === req.params.id) {
+    Cloud.findById(req.params.cid)
+    .then(function(cloud) {
+      res.render('cloud.ejs', {
+        user: currentUser,
+        title: 'Cloud-'+cloud.name,
+        cloud: cloud
+      });
+    });
+  }else {
+    res.redirect('/');
+  }
 });
 
 module.exports = router;
