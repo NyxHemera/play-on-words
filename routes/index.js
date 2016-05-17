@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var User = require('../models/users')
 
 // Home Page
 router.get('/', function(req, res, next) {
@@ -9,19 +10,22 @@ router.get('/', function(req, res, next) {
 
 //users/:id/edit profile chg userprof.ejs
 //????
-router.route('/users/:id/edit')
-	.get(function(req, res, next) {
-		res.render('edituser.ejs', { message: req.flash() });
-	})
-	.post(function(req, res, next) {
-		// var signUpStrategy = passport.authenticate('local-signup', {
-		// 	successRedirect: '/users',
-		// 	failureRedirect: '/signup',
-		// 	failureFlash: true
-		// });
+// router.get('/users/:id/edit', function(req,res,next){
+// 	// res.render('edituser.ejs', { message: req.flash() });
+// 	res.render('edituser.ejs',{local:email,local:password});
+// });
 
-		return signUpStrategy(req, res, next);
-	});
+router.get('/users/:id/edit', function(req, res, next) {
+  User.findById(req.params.id)
+  .then(function(user) {
+    if (!user) return next(makeError(res, 'Document not found', 404));
+      //res.send("hi iam here");
+      console.log('1');
+    res.render('edituser', { user: user });
+  }, function(err) {
+    return next(err);
+  });
+});
 
 // Signup Page
 router.route('/signup')
