@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var User = require('../models/users');
 
 // Home Page
 router.get('/', function(req, res, next) {
@@ -13,13 +14,16 @@ router.route('/signup')
 		res.render('signup.ejs', { message: req.flash() });
 	})
 	.post(function(req, res, next) {
-		var signUpStrategy = passport.authenticate('local-signup', {
-			successRedirect: '/users',
-			failureRedirect: '/signup',
-			failureFlash: true
-		});
+		User.findOne({'local.email': req.body.email}, function(err, user) {
+			if(err) return console.log(err);
 
-		return signUpStrategy(req, res, next);
+			var signUpStrategy = passport.authenticate('local-signup', {
+				successRedirect: '/users/'+ user._id,
+				failureRedirect: '/signup',
+				failureFlash: true
+			});
+			return signUpStrategy(req, res, next);
+		});
 	});
 
 // Login Page
@@ -28,13 +32,16 @@ router.route('/login')
 		res.render('login.ejs', { message: req.flash() });
 	})
 	.post(function(req, res, next) {
-		var loginProperty = passport.authenticate('local-login', {
-			successRedirect: '/users',
-			failureRedirect: '/login',
-			failureFlash: true
-		});
+		User.findOne({'local.email': req.body.email}, function(err, user) {
+			if(err) return console.log(err);
 
-		return loginProperty(req, res, next);
+			var loginProperty = passport.authenticate('local-login', {
+				successRedirect: '/users/'+ user._id,
+				failureRedirect: '/login',
+				failureFlash: true
+			});
+			return loginProperty(req, res, next);
+		});
 	});
 
 router.route('/wordcloud')
