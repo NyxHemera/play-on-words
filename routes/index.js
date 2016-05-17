@@ -3,10 +3,12 @@ var router = express.Router();
 var passport = require('passport');
 var User = require('../models/users');
 
+
 // Home Page
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express', message: req.flash() });
 });
+
 
 // Signup Page
 router.route('/signup')
@@ -43,6 +45,7 @@ router.route('/login')
 			return loginProperty(req, res, next);
 		});
 	});
+
 
 router.route('/wordcloud')
 	.get(function(req, res, next) {

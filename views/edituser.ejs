@@ -6,19 +6,20 @@
 </head>
 
 <body>
-  <form method="post" action="/edit">
+  <form method="POST" action="/users/<%= user._id %>?_method=PUT">
     <label for="email">Email</label>
-    <input type="text" name="email" id="email">
+    <input type="text" name="email" id="email" value="<%= user.local.email%>">
     <label for="password">Password</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" value="<%= user.local.password%>">
     <label for="first_name">First Name</label>
-    <input type="text" name="first_name" id="first_name">
+    <input type="text" name="first_name" id="first_name" value="<%= user.first_name%>">
     <label for="last_Name">Last Name</label>
-    <input type="text" name="last_Name" id="last_Name">
+    <input type="text" name="last_Name" id="last_Name" value="<%= user.last_Name%>">
     <label for="twitter">Twitter</label>
-    <input type="text" name="twitter" id="twitter">
+    <input type="text" name="twitter" id="twitter" value="<%= user.twitter%>">
 
     <input type="submit">
+
   </form>
 </body>
 
