@@ -55,7 +55,8 @@ router.put('/:id',authenticate, function(req, res, next) {
   .then(function(user) {
     if (!user) return next(makeError(res, 'Document not found', 404));
     // user.local.email = req.body.local.email;
-    user.local.password= req.body.local.password;
+    // user.local.password= req.body.local.password;
+    console.log('body is ',req.body);
     user.first_name = req.body.first_name;
     user.last_Name=req.body.last_Name;
     user.twitter = req.body.twitter;

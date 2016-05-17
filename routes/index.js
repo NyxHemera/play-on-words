@@ -20,7 +20,8 @@ router.route('/signup')
 			if(err) return console.log(err);
 
 			var signUpStrategy = passport.authenticate('local-signup', {
-				successRedirect: '/users/'+ user._id,
+				// successRedirect: '/users/'+ user._id,
+				successRedirect: '/users/',
 				failureRedirect: '/signup',
 				failureFlash: true
 			});
