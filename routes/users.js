@@ -2,14 +2,29 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 
+function makeError(res, message, status) {
+  res.statusCode = status;
+  var error = new Error(message);
+  error.status = status;
+  return error;
+}
+
+function authenticate(req, res, next) {
+  if(!req.isAuthenticated()) {
+    res.redirect('/');
+  }
+  else {
+    next();
+  }
+}
 // GET Users listing
-router.get('/', function(req, res, next) {
+router.get('/', authenticate, function(req, res, next) {
 	console.log(global.currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 
 // GET User Profile
-router.get('/:id', function(req, res, next) {
+router.get('/:id', authenticate,function(req, res, next) {
 	console.log(req.params);
 	User.findById(req.params.id, function(err, user) {
 		res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
@@ -18,25 +33,29 @@ router.get('/:id', function(req, res, next) {
 });
 
 // GET User Edit
-router.get('/:id/edit', function(req, res, next) {
-  User.findById(req.params.id)
-  .then(function(user) {
-    if (!user) return next(makeError(res, 'Document not found', 404));
-      //res.send("hi iam here");
-      console.log('1');
-    res.render('edituser', { user: user });
-  }, function(err) {
-    return next(err);
-  });
+router.get('/:id/edit', authenticate,function(req, res, next) {
+
+  if (currentUser._id.equals(req.params.id)) {
+    User.findById(req.params.id)
+    .then(function(user) {
+      if (!user) return next(makeError(res, 'Document not found', 404));
+        res.render('edituser', { user: user });
+    }, function(err) {
+      return next(err);
+    });
+  } //if currentUser same as id, then allow update
+  else {
+    res.redirect('/users/'+ currentUser._id);
+  }
 });
 
 // UPDATE User (NEEDS AUTHORIZATION WITH REDIRECT)
-router.put('/:id', function(req, res, next) {
+router.put('/:id',authenticate, function(req, res, next) {
   User.findById(req.params.id) //find again..as its stateless like rails
   .then(function(user) {
     if (!user) return next(makeError(res, 'Document not found', 404));
     // user.local.email = req.body.local.email;
-    // user.local.password= req.body.local.password;
+    user.local.password= req.body.local.password;
     user.first_name = req.body.first_name;
     user.last_Name=req.body.last_Name;
     user.twitter = req.body.twitter;

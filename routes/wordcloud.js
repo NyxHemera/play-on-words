@@ -2,6 +2,14 @@ var express = require('express');
 var router = express.Router();
 var WordCloud = require('../models/wordclouds');
 
+function authenticate(req, res, next) {
+  if(!req.isAuthenticated()) {
+    res.redirect('/');
+  }
+  else {
+    next();
+  }
+}
 //users/:id/clouds/:id
 // render cloud.ejs
 
@@ -41,7 +49,7 @@ router.get('/:id',function(req,res,next){
 }); //router.get show
 
 // CREATE
-router.post('/', function(req, res, next) {
+router.post('/', authenticate, function(req, res, next) {
   var wordCloud = new WordCloud({
     name: req.body.name,
     // tags: req.body.text
@@ -66,7 +74,7 @@ router.post('/', function(req, res, next) {
 
 
 // UPDATE (reviewed)
-router.put('/:id', function(req, res, next) {
+router.put('/:id', authenticate,function(req, res, next) {
   WordCloud.findById(req.params.id)
   .then(function(wordCloud) {
     if (!wordCloud) return next(makeError(res, 'not found word', 404));
@@ -82,7 +90,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 // EDIT
-router.get('/:id/edit', function(req, res, next) {
+router.get('/:id/edit', authenticate, function(req, res, next) {
   WordCloud.findById(req.params.id)
   .then(function(wordCloud) {
     if (!wordCloud) return next(makeError(res, 'Document not found', 404));
@@ -95,7 +103,7 @@ router.get('/:id/edit', function(req, res, next) {
 
 
 // DESTROY
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', authenticate, function(req, res, next) {
   WordCloud.findByIdAndRemove(req.params.id)
   .then(function() {
     res.redirect('/words');
