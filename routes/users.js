@@ -5,6 +5,7 @@ var User = require('../models/users');
 // GET Users listing
 router.get('/', function(req, res, next) {
 	console.log(global.currentUser);
+  console.log(currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 
@@ -44,7 +45,7 @@ router.put('/:id', function(req, res, next) {
     return user.save(); //merge w data in db
   })
   .then(function(saved) {
-    res.redirect('/users/'+user._id); //redirect to index routes
+    res.redirect('/users/'+user._id);
   }, function(err) {
     return next(err);
   });
