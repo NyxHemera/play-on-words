@@ -44,7 +44,7 @@ router.put('/:id', function(req, res, next) {
     return user.save(); //merge w data in db
   })
   .then(function(saved) {
-    res.redirect('/users/'+user._id); //redirect to index routes
+    res.redirect('/users/'+user._id);
   }, function(err) {
     return next(err);
   });
