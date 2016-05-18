@@ -1,24 +1,40 @@
-/*this function will create an array of the input "words"*/
-
+//--------------------------------------------------------/
+// this function will create an arrayOfWords              /
+//--------------------------------------------------------/
 var parseWCString = function(userString) {
         var removeReturns = userString.replace(/\n/g, " ");
         var stripString = removeReturns.toLowerCase().replace(/[_+-.,!?$%^&*():~`;\\/|<>"]/g, '');
         // var removeArticles = stripString.
         var arrayOfWords = stripString.split(' ');
 
+        arrayOfWords = stripFillerWords(arrayOfWords);
+
         return arrayOfWords;
 }
+//-------------------------------------------------------/
+// This function will strip all filler words from input  /
+//-------------------------------------------------------/
 
-/* This function will:
-*   - sort the input array
-*   - count the number of times each works appear in the arry
-*   - build a new array with object that capture only unique words
-*      and also frequency count from the original array
-*
-*  Input: array of words "words"
-* Output: array of Objects "wordsObj"
-*
-*/
+var stripFillerWords = function(arrayOfWords) {
+
+   var removeFillers=['the','or','and','but','of','in'];
+
+   for (var i=0; i< arrayOfWords.length; i++){
+    for (var j=0; j< removeFillers.length; j++){
+       if (removeFillers[j] === arrayOfWords[i]){
+          arrayOfWords.splice(i,1);
+          i--;
+          break;
+       }
+    }
+   }
+   return arrayOfWords;
+ }
+
+//-------------------------------------------------------/
+//  This function will output array of Objects           /
+//-------------------------------------------------------/
+
 var createWCObj = function(words) {
     var newArr = [];
     var cnt = 1;
@@ -38,6 +54,10 @@ var createWCObj = function(words) {
     }
     return newArr;
 } //function createWCObj
+
+//-------------------------------------------------------/
+//This will build 2D array from array of object          /
+//-------------------------------------------------------/
 
 var createWCArray = function(wordsObj){
   var newArr = [];
@@ -64,6 +84,7 @@ var getWCObj = function(textString) {
 }
 
 module.exports.parseWCString = parseWCString;
+module.exports.stripFillerWords = stripFillerWords;
 module.exports.createWCObj = createWCObj;
 module.exports.createWCArray = createWCArray;
 module.exports.getWCArr = getWCArr;
