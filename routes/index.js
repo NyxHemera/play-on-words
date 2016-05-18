@@ -16,8 +16,6 @@ router.route('/signup')
 		res.render('signup.ejs', { message: req.flash() });
 	})
 	.post(function(req, res, next) {
-		if(err) return console.log(err);
-
 		var signUpStrategy = passport.authenticate('local-signup', {
 			successRedirect: '/users/',
 			failureRedirect: '/signup',
