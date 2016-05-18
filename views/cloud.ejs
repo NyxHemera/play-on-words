@@ -28,7 +28,13 @@
                  </div>
                </div>
           <div class="seperator"> </div>
-          <div class="word-display"> </div>
+          <div class="word-display">
+            <ul>
+            <% cloud.tags.forEach(function(tag){ %>
+            <li> <%= tag.text %></li>
+            <% }); %>
+            </ul>
+          </div>
        </body>
       <script type="text/javascript">
         $('#wc-text-input').on('input', function() {
