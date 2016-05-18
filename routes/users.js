@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 var Cloud = require('../models/wordclouds');
+var WordPrep = require('../public/javascripts/wordprep');
 
 function makeError(res, message, status) {
   res.statusCode = status;
@@ -18,6 +19,11 @@ function authenticate(req, res, next) {
     next();
   }
 }
+
+function authorized(req) {
+	return ""+currentUser._id === req.params.id;
+}
+
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
   res.send('<h1>USERS PAGE</h1>');
@@ -35,7 +41,7 @@ router.get('/:id', authenticate,function(req, res, next) {
 // GET User Edit
 router.get('/:id/edit', authenticate,function(req, res, next) {
 
-  if (currentUser._id.equals(req.params.id)) {
+  if (authorized(req)) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
@@ -71,9 +77,7 @@ router.put('/:id',authenticate, function(req, res, next) {
 });
 
 router.post('/:id/clouds', authenticate, function(req, res, next) {
-  var CUID = ""+currentUser._id;
-  console.log('req.body');
-  if(CUID === req.params.id) {
+  if(authorized(req)) {
     var cloud = {
       name: "Default Name",
       text: req.body.text,
@@ -81,16 +85,20 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
       palette: 0,
       private: false,
       image: req.body.image,
-      mask: "",
-      tags: req.body.tags
+      mask: ""
     };
+    /*	
+  		Tags were being sent through as a broken string,
+  		generating the tag object inside of the route ensures
+  		that the display property is included and the structure
+  		of the data is preserved. 
+    */
+    cloud.tags = WordPrep.getWCObj(cloud.text);
     Cloud.create([cloud], function(err, clouds) {
       currentUser.clouds.push(clouds[0]._id);
       currentUser.save(function(err) {
-        console.log(currentUser.clouds);
-        console.log(currentUser.clouds[currentUser.clouds.length - 1]);
         var CID = currentUser.clouds[currentUser.clouds.length-1];
-        res.redirect('/users/'+CUID+'/clouds/'+CID);
+        res.redirect('/users/'+currentUser._id+'/clouds/'+CID);
       });
     });
   }else {
@@ -100,8 +108,7 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
 
 // GET Cloud Page
 router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
-  var CUID = ""+currentUser._id;
-  if(CUID === req.params.id) {
+  if(authorized(req)) {
     Cloud.findById(req.params.cid)
     .then(function(cloud) {
       res.render('cloud.ejs', {
