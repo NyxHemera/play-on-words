@@ -24,6 +24,15 @@ function authorized(req) {
 	return ""+currentUser._id === req.params.id;
 }
 
+function cloudOwner(req) {
+	var CID = req.params.cid;
+	for(var i=0; i<currentUser.clouds.length; i++) {
+		if(""+currentUser.clouds[i] === CID) return true;
+	}
+	console.log('cloudOwner - FAILED - '+req.params+' '+currentUser);
+	return false;
+}
+
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
   res.send('<h1>USERS PAGE</h1>');
@@ -120,6 +129,31 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   }else {
     res.redirect('/');
   }
+});
+
+// PUT Cloud Page
+router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
+	// Needs extra authZ check to make sure cloud belongs to user ID
+	if(authorized(req) && cloudOwner(req)) {
+		Cloud.findById(req.params.cid)
+		.then(function(cloud) {
+			// If cloud doesn't exist, 404 error
+			if (!cloud) return next(makeError(res, 'Document not found', 404));
+
+			cloud.text = req.body.text;
+			cloud.name = req.body.name;
+			cloud.private = req.body.private;
+			cloud.palette = req.body.palette;
+			return cloud.save();
+		})
+		.then(function(saved) {
+			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.id);
+		}, function(err) {
+			return next(err);
+		});
+	}else {
+		res.redirect('/');
+	}
 });
 
 module.exports = router;
