@@ -1,6 +1,8 @@
 /*this function will create an array of the input "words"*/
  function parseWCString(userString) {
-        var stripString = userString.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
+        var removeReturns = userString.replace(/\n/g, " ");
+        var stripString = removeReturns.toLowerCase().replace(/[_+-.,!$%^&*():~`;\\/|<>"]/g, '');
+        // var removeArticles = stripString.
         var arrayOfWords = stripString.split(' ');
 
         return arrayOfWords;
