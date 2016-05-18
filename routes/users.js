@@ -149,21 +149,37 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 		.then(function(cloud) {
 			// If cloud doesn't exist, 404 error
 			if (!cloud) return next(makeError(res, 'Document not found', 404));
-
+      console.log(cloud.text);
+      console.log('!!!!');
+      console.log(req.body);
 			cloud.text = req.body.text;
-			cloud.name = req.body.name;
-			cloud.private = req.body.private;
-			cloud.palette = req.body.palette;
+      cloud.image = req.body.image;
+      console.log(cloud.text);
+			// cloud.name = req.body.name;
+			// cloud.private = req.body.private;
+			// cloud.palette = req.body.palette;
 			return cloud.save();
 		})
 		.then(function(saved) {
-			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.id);
+			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.cid);
 		}, function(err) {
 			return next(err);
 		});
 	}else {
 		res.redirect('/');
 	}
+});
+
+// DESTROY
+router.delete('/:id/clouds/:cid', authenticate, function(req, res, next) {
+  if(authorized(req) && cloudOwner(req)) {
+    Cloud.findByIdAndRemove(req.params.cid)
+    .then(function() {
+      res.redirect('/users/'+req.params.id);
+    }, function(err) {
+      return next(err);
+    });
+  }
 });
 
 module.exports = router;
