@@ -17,8 +17,19 @@ var wordsRouter = require('./routes/wordcloud');
 
 var app = express();
 
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/project3';
+
 // Connect to DB
-mongoose.connect('mongodb://localhost/project3');
+mongoose.connect(uristring, function(err, res) {
+  if(err) {
+    console.log('ERROR connecting to: '+uristring+'. '+err);
+  }else {
+    console.log('Succeeded in connecting to: '+uristring);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
