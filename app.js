@@ -20,6 +20,7 @@ var app = express();
 var uristring =
 process.env.MONGOLAB_URI ||
 process.env.MONGOHQ_URL ||
+process.env.MONGODB_URI ||
 'mongodb://localhost/project3';
 
 // Connect to DB
