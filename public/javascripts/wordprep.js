@@ -1,6 +1,9 @@
 /*this function will create an array of the input "words"*/
+
 var parseWCString = function(userString) {
-        var stripString = userString.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`\"~()]/g, '');
+        var removeReturns = userString.replace(/\n/g, " ");
+        var stripString = removeReturns.toLowerCase().replace(/[_+-.,!?$%^&*():~`;\\/|<>"]/g, '');
+        // var removeArticles = stripString.
         var arrayOfWords = stripString.split(' ');
 
         return arrayOfWords;
@@ -60,8 +63,14 @@ var getWCObj = function(textString) {
   return wordObj = createWCObj(parseWCString(textString));
 }
 
+<<<<<<< HEAD
+var words = "Adele announced on Monday that 25's third single will be Send My Love (To Your New Lover), one of the few songs on the album that have not directly led me to a cold puddle of tears. Unlike its predecessors Hello and When We Were Young, this song is one of the more hopeful and upbeat tracks of the album. If you don't believe me, then what's with all the pretty flowers on Adele's dress, seen here in a preview of the single's music video? ";
+getWCArr(words);
+getWCObj(words);
+=======
 module.exports.parseWCString = parseWCString;
 module.exports.createWCObj = createWCObj;
 module.exports.createWCArray = createWCArray;
 module.exports.getWCArr = getWCArr;
 module.exports.getWCObj = getWCObj;
+>>>>>>> master
