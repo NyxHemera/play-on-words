@@ -7,7 +7,8 @@ var WordCloud = new mongoose.Schema({
 	private: Boolean,
 	image: String,
 	mask: String,
-	user: {type: mongoose.Schema.ObjectId, ref: 'User'}
+	user: {type: mongoose.Schema.ObjectId, ref: 'User'},
+	text: String
 });
 
 module.exports = mongoose.model('WordCloud', WordCloud);

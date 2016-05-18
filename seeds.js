@@ -58,6 +58,7 @@ User.remove({})
 })
 .then(function(savedUsers) {
   console.log('Just saved', savedUsers.length, 'Users');
+  quit();
   var cloud1 = new WordCloud({
     name: "testcloud",
     tags: [
