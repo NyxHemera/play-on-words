@@ -60,7 +60,7 @@ app.use(function(req, res, next) {
 
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
-app.use('/words', wordsRouter);
+app.use('/clouds', wordsRouter);
 
 
 // catch 404 and forward to error handler

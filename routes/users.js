@@ -36,7 +36,7 @@ function cloudOwner(req) {
 
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-  res.render('users/users.ejs', {loggedIn: currentUser});
+  res.render('users/index.ejs', {loggedIn: currentUser});
 });
 
 // GET User Profile
@@ -44,7 +44,7 @@ router.get('/:id', authenticate,function(req, res, next) {
   User.findById(req.params.id)
   .populate('clouds')
   .exec(function(err, user) {
-    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name, loggedIn: currentUser });
+    res.render('users/user.ejs', { user: user, title: 'Profile-'+user.first_name, loggedIn: currentUser });
   });
 });
 
@@ -55,7 +55,7 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
-        res.render('edituser', { user: user, message: '', loggedIn: currentUser });
+        res.render('users/edituser.ejs', { user: user, message: '', loggedIn: currentUser });
     }, function(err) {
       return next(err);
     });
@@ -82,7 +82,7 @@ router.put('/:id',authenticate, function(req, res, next) {
       else {
         // Send an error message back to the user
         // res.redirect('/users/'+ currentUser._id + '/edit', req.flash('Your password failed validation'));
-        res.render ('edituser', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
+        res.render ('users/edituser.ejs', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
         // res.redirect('/users/'+ currentUser._id + '/edit');
       }
 
@@ -130,7 +130,7 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   if(authorized(req)) {
     Cloud.findById(req.params.cid)
     .then(function(cloud) {
-      res.render('cloud.ejs', {
+      res.render('clouds/cloud.ejs', {
         user: currentUser,
         title: 'Cloud-'+cloud.name,
         cloud: cloud,

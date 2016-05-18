@@ -10,33 +10,24 @@ function authenticate(req, res, next) {
     next();
   }
 }
-//users/:id/clouds/:id
-// render cloud.ejs
 
-//users/:id  user.ejs
-
-
-// render user.ejs to show all wordCld obj
-//of the user and allow CREATE button
-
-//New
+/*//New
 router.get('/new', function(req,res,next){
   res.send('new');
-});
+});*/
 
-// INDEX
-router.get('/', function(req, res, next) {
+// Clouds INDEX
+router.get('/', authenticate, function(req, res, next) {
   // get all the todos and render the index view
   WordCloud.find({})
-  .then(function(wordClound) {
-      res.send('index page');
-    // res.render('todos/index', { todos: todos } );
+  .then(function(clouds) {
+    res.render('clouds/index.ejs', { clouds: clouds, loggedIn: currentUser } );
   }, function(err) {
     return next(err);
   });
 });
 
-//show
+/*//show
 router.get('/:id',function(req,res,next){
   WordCloud.findById(req.params.id)
   .then (function(wordCloud){
@@ -110,7 +101,7 @@ router.delete('/:id', authenticate, function(req, res, next) {
   }, function(err) {
     return next(err);
   });
-});
+});*/
 
 
 module.exports = router;
