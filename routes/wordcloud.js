@@ -19,7 +19,7 @@ router.get('/new', function(req,res,next){
 // Clouds INDEX
 router.get('/', authenticate, function(req, res, next) {
   // get all the todos and render the index view
-  WordCloud.find({})
+  WordCloud.find({ private: false })
   .then(function(clouds) {
     res.render('clouds/index.ejs', { clouds: clouds, loggedIn: currentUser } );
   }, function(err) {
