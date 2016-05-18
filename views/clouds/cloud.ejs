@@ -24,22 +24,24 @@
                   <textarea id="wc-text-input"><%= cloud.text %></textarea>
               </div>
                 <div class="buttons">
-                  <form id="saveForm" method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
-                  <button id="btn-save" onclick="fillInputs()">Save</button>
+                  <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
+                  <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
                   <input id="wc-image-input" name='image' type="hidden"/>
                   <input id="textInput" name='text' type="hidden" />
                   </form>
-                  <form method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
-                      <input type="submit" value="Delete"/>
+                  <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
+                      <input class="size-button" type="submit" value="Delete"/>
                   </form>
                  </div>
                </div>
           <div class="seperator"> </div>
           <div class="word-display">
             <ul>
+            <div class="tag-display">
             <% cloud.tags.forEach(function(tag){ %>
-            <li> <%= tag.text %></li>
+            <li class="tag-display"> <%= tag.text %></li>
             <% }); %>
+            </div>
             </ul>
           </div>
        </body>
