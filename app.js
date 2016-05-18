@@ -17,8 +17,20 @@ var wordsRouter = require('./routes/wordcloud');
 
 var app = express();
 
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+process.env.MONGODB_URI ||
+'mongodb://localhost/project3';
+
 // Connect to DB
-mongoose.connect('mongodb://localhost/project3');
+mongoose.connect(uristring, function(err, res) {
+  if(err) {
+    console.log('ERROR connecting to: '+uristring+'. '+err);
+  }else {
+    console.log('Succeeded in connecting to: '+uristring);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +40,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));

@@ -16,17 +16,12 @@ router.route('/signup')
 		res.render('signup.ejs', { message: req.flash() });
 	})
 	.post(function(req, res, next) {
-		User.findOne({'local.email': req.body.email}, function(err, user) {
-			if(err) return console.log(err);
-
-			var signUpStrategy = passport.authenticate('local-signup', {
-				// successRedirect: '/users/'+ user._id,
-				successRedirect: '/users/',
-				failureRedirect: '/signup',
-				failureFlash: true
-			});
-			return signUpStrategy(req, res, next);
+		var signUpStrategy = passport.authenticate('local-signup', {
+			successRedirect: '/users/',
+			failureRedirect: '/signup',
+			failureFlash: true
 		});
+		return signUpStrategy(req, res, next);
 	});
 
 // Login Page

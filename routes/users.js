@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
 var isValidPassword = require('../public/javascripts/password.js');
-
+var Cloud = require('../models/wordclouds');
+var WordPrep = require('../public/javascripts/wordprep');
 
 function makeError(res, message, status) {
   res.statusCode = status;
@@ -19,26 +20,38 @@ function authenticate(req, res, next) {
     next();
   }
 }
+
+function authorized(req) {
+	return ""+currentUser._id === req.params.id;
+}
+
+function cloudOwner(req) {
+	var CID = req.params.cid;
+	for(var i=0; i<currentUser.clouds.length; i++) {
+		if(""+currentUser.clouds[i] === CID) return true;
+	}
+	console.log('cloudOwner - FAILED - '+req.params+' '+currentUser);
+	return false;
+}
+
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-	console.log(global.currentUser);
-  console.log(currentUser);
   res.send('<h1>USERS PAGE</h1>');
 });
 
 // GET User Profile
 router.get('/:id', authenticate,function(req, res, next) {
-	console.log(req.params);
-	User.findById(req.params.id, function(err, user) {
-		res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
-		//res.send('<h1>User '+ user.first_name +'</h1> <a href="/users/'+ user._id +'/clouds/0">Cloud</a>');
-	});
+  User.findById(req.params.id)
+  .populate('clouds')
+  .exec(function(err, user) {
+    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
+  });
 });
 
 // GET User Edit
 router.get('/:id/edit', authenticate,function(req, res, next) {
 
-  if (currentUser._id.equals(req.params.id)) {
+  if (authorized(req)) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
@@ -82,17 +95,75 @@ router.put('/:id',authenticate, function(req, res, next) {
   });
 });
 
+router.post('/:id/clouds', authenticate, function(req, res, next) {
+  if(authorized(req)) {
+    var cloud = {
+      name: "Default Name",
+      text: req.body.text,
+      user: currentUser._id,
+      palette: 0,
+      private: false,
+      image: req.body.image,
+      mask: ""
+    };
+    /*
+  		Tags were being sent through as a broken string,
+  		generating the tag object inside of the route ensures
+  		that the display property is included and the structure
+  		of the data is preserved.
+    */
+    cloud.tags = WordPrep.getWCObj(cloud.text);
+    Cloud.create([cloud], function(err, clouds) {
+      currentUser.clouds.push(clouds[0]._id);
+      currentUser.save(function(err) {
+        var CID = currentUser.clouds[currentUser.clouds.length-1];
+        res.redirect('/users/'+currentUser._id+'/clouds/'+CID);
+      });
+    });
+  }else {
+    res.redirect('/');
+  }
+});
+
 // GET Cloud Page
-router.get('/:id/clouds/:index', function(req, res, next) {
-	console.log(req.params);
-	User.findById(req.params.id, function(err, user) {
-		res.render('cloud.ejs', {
-			user: user,
-			title: 'Cloud-'+user.clouds[req.params.index].name,
-			cloud: user.clouds[req.params.index]
+router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
+  if(authorized(req)) {
+    Cloud.findById(req.params.cid)
+    .then(function(cloud) {
+      res.render('cloud.ejs', {
+        user: currentUser,
+        title: 'Cloud-'+cloud.name,
+        cloud: cloud
+      });
+    });
+  }else {
+    res.redirect('/');
+  }
+});
+
+// PUT Cloud Page
+router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
+	// Needs extra authZ check to make sure cloud belongs to user ID
+	if(authorized(req) && cloudOwner(req)) {
+		Cloud.findById(req.params.cid)
+		.then(function(cloud) {
+			// If cloud doesn't exist, 404 error
+			if (!cloud) return next(makeError(res, 'Document not found', 404));
+
+			cloud.text = req.body.text;
+			cloud.name = req.body.name;
+			cloud.private = req.body.private;
+			cloud.palette = req.body.palette;
+			return cloud.save();
+		})
+		.then(function(saved) {
+			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.id);
+		}, function(err) {
+			return next(err);
 		});
-		//res.send('<h1>Cloud '+ user.clouds[req.params.index].name +'</h1>');
-	});
+	}else {
+		res.redirect('/');
+	}
 });
 
 module.exports = router;
