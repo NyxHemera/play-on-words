@@ -1,5 +1,4 @@
 .cloud-page{
-  background-color: teal;
   padding-top: 30px;
 
 
@@ -52,5 +51,26 @@
 
 .buttons{
   margin-top: 5px;
+  width: 150px;
+  display: inline-block;
 
+}
+.size-button {
+  width: 50px;
+}
+.size-button-form{
+  width: 60px;
+}
+
+.word-display{
+  margin: auto;
+  width: 60vw;
+
+
+
+}
+.tag-display{
+   display: inline-block;
+   padding-left: 25px;
+   padding-top: 10px;
 }
