@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var isValidPassword = require('../public/javascripts/password.js');
 var Cloud = require('../models/wordclouds');
 var WordPrep = require('../public/javascripts/wordprep');
 
@@ -54,7 +55,7 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
-        res.render('edituser', { user: user, loggedIn: currentUser });
+        res.render('edituser', { user: user, message: '', loggedIn: currentUser });
     }, function(err) {
       return next(err);
     });
@@ -64,22 +65,31 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
   }
 });
 
+
 // UPDATE User (NEEDS AUTHORIZATION WITH REDIRECT)
 router.put('/:id',authenticate, function(req, res, next) {
   User.findById(req.params.id) //find again..as its stateless like rails
   .then(function(user) {
     if (!user) return next(makeError(res, 'Document not found', 404));
-    // user.local.email = req.body.local.email;
-    // user.local.password= req.body.local.password;
-    console.log('body is ',req.body);
-    user.first_name = req.body.first_name;
-    user.last_Name=req.body.last_Name;
-    user.twitter = req.body.twitter;
-    console.log(user);
-    return user.save(); //merge w data in db
-  })
+     var newPassword = req.body.password;
+     console.log('newPassword:', newPassword);
+     if (isValidPassword(newPassword)) {
+        user.local.password=user.encrypt(newPassword);
+        user.first_name = req.body.first_name;
+        user.last_Name=req.body.last_Name;
+        user.twitter = req.body.twitter;
+      }
+      else {
+        // Send an error message back to the user
+        // res.redirect('/users/'+ currentUser._id + '/edit', req.flash('Your password failed validation'));
+        res.render ('edituser', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
+        // res.redirect('/users/'+ currentUser._id + '/edit');
+      }
+
+      return user.save(); //merge w data in db
+   })
   .then(function(saved) {
-    res.redirect('/users/'+user._id);
+    res.redirect('/users/'+ currentUser._id);
   }, function(err) {
     return next(err);
   });
@@ -96,11 +106,11 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
       image: req.body.image,
       mask: ""
     };
-    /*	
+    /*
   		Tags were being sent through as a broken string,
   		generating the tag object inside of the route ensures
   		that the display property is included and the structure
-  		of the data is preserved. 
+  		of the data is preserved.
     */
     cloud.tags = WordPrep.getWCObj(cloud.text);
     Cloud.create([cloud], function(err, clouds) {
@@ -140,21 +150,37 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 		.then(function(cloud) {
 			// If cloud doesn't exist, 404 error
 			if (!cloud) return next(makeError(res, 'Document not found', 404));
-
+      console.log(cloud.text);
+      console.log('!!!!');
+      console.log(req.body);
 			cloud.text = req.body.text;
-			cloud.name = req.body.name;
-			cloud.private = req.body.private;
-			cloud.palette = req.body.palette;
+      cloud.image = req.body.image;
+      console.log(cloud.text);
+			// cloud.name = req.body.name;
+			// cloud.private = req.body.private;
+			// cloud.palette = req.body.palette;
 			return cloud.save();
 		})
 		.then(function(saved) {
-			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.id);
+			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.cid);
 		}, function(err) {
 			return next(err);
 		});
 	}else {
 		res.redirect('/');
 	}
+});
+
+// DESTROY
+router.delete('/:id/clouds/:cid', authenticate, function(req, res, next) {
+  if(authorized(req) && cloudOwner(req)) {
+    Cloud.findByIdAndRemove(req.params.cid)
+    .then(function() {
+      res.redirect('/users/'+req.params.id);
+    }, function(err) {
+      return next(err);
+    });
+  }
 });
 
 module.exports = router;

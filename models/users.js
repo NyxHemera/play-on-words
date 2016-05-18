@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 var User = new mongoose.Schema({
 	local: {
+		// email: {type: String, match: /.+\@.+\..+/},
 		email: String,
 		password: String
 	},
