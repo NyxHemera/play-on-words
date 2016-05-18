@@ -10,7 +10,7 @@
     <label for="email">Email</label>
     <input type="text" name="email" id="email" value="<%= user.local.email%>">
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" value="<%= user.local.password%>">
+    <input type="password" name="password" id="password" >
     <label for="first_name">First Name</label>
     <input type="text" name="first_name" id="first_name" value="<%= user.first_name%>">
     <label for="last_Name">Last Name</label>
@@ -19,8 +19,8 @@
     <input type="text" name="twitter" id="twitter" value="<%= user.twitter%>">
 
     <input type="submit">
-
   </form>
-</body>
+    <p><%= message %></p>
+  </body>
 
 </html>

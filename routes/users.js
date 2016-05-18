@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/users');
+var isValidPassword = require('../public/javascripts/password.js');
+
 
 function makeError(res, message, status) {
   res.statusCode = status;
@@ -40,7 +42,7 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
-        res.render('edituser', { user: user });
+        res.render('edituser', { user: user, message: '' });
     }, function(err) {
       return next(err);
     });
@@ -50,22 +52,31 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
   }
 });
 
+
 // UPDATE User (NEEDS AUTHORIZATION WITH REDIRECT)
 router.put('/:id',authenticate, function(req, res, next) {
   User.findById(req.params.id) //find again..as its stateless like rails
   .then(function(user) {
     if (!user) return next(makeError(res, 'Document not found', 404));
-    // user.local.email = req.body.local.email;
-    // user.local.password= req.body.local.password;
-    console.log('body is ',req.body);
-    user.first_name = req.body.first_name;
-    user.last_Name=req.body.last_Name;
-    user.twitter = req.body.twitter;
-    console.log(user);
-    return user.save(); //merge w data in db
-  })
+     var newPassword = req.body.password;
+     console.log('newPassword:', newPassword);
+     if (isValidPassword(newPassword)) {
+        user.local.password=user.encrypt(newPassword);
+        user.first_name = req.body.first_name;
+        user.last_Name=req.body.last_Name;
+        user.twitter = req.body.twitter;
+      }
+      else {
+        // Send an error message back to the user
+        // res.redirect('/users/'+ currentUser._id + '/edit', req.flash('Your password failed validation'));
+        res.render ('edituser', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
+        // res.redirect('/users/'+ currentUser._id + '/edit');
+      }
+
+      return user.save(); //merge w data in db
+   })
   .then(function(saved) {
-    res.redirect('/users/'+user._id);
+    res.redirect('/users/'+ currentUser._id);
   }, function(err) {
     return next(err);
   });
