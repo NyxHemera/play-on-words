@@ -6,6 +6,7 @@
 </head>
 
 <body>
+  <% include partials/nav %>
   <form method="POST" action="/users/<%= user._id %>?_method=PUT">
     <label for="email">Email</label>
     <input type="text" name="email" id="email" value="<%= user.local.email%>">

@@ -36,7 +36,7 @@ function cloudOwner(req) {
 
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-  res.send('<h1>USERS PAGE</h1>');
+  res.render('users/users.ejs', {loggedIn: currentUser});
 });
 
 // GET User Profile
@@ -44,7 +44,7 @@ router.get('/:id', authenticate,function(req, res, next) {
   User.findById(req.params.id)
   .populate('clouds')
   .exec(function(err, user) {
-    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
+    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name, loggedIn: currentUser });
   });
 });
 
@@ -55,7 +55,7 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
-        res.render('edituser', { user: user, message: '' });
+        res.render('edituser', { user: user, message: '', loggedIn: currentUser });
     }, function(err) {
       return next(err);
     });
@@ -133,7 +133,8 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
       res.render('cloud.ejs', {
         user: currentUser,
         title: 'Cloud-'+cloud.name,
-        cloud: cloud
+        cloud: cloud,
+        loggedIn: currentUser
       });
     });
   }else {

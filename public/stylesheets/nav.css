@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#wrap-nav {
+  display: flex;
+  width: 100vw;
+  height: 6vh;
+  color: #f7f7f7;
+  background-color: #1b9aaa;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75);
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+#wrap-nav > div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.nav-item {
+  display: inline-block;
+  margin: 0 1vw 0 1vw;
+  text-decoration: none;
+  color: #f7f7f7;
+}
+.shadows {
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75);
+}

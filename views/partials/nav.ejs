@@ -1,0 +1,17 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
+<nav id='wrap-nav'>
+	<a href='/'><h3 class='nav-logo nav-item'>Play-On-Words</h3></a>
+	<% if(loggedIn) {%>
+		<div>
+			<a href='/users/<%= loggedIn._id %>'><h4 class='nav-item'>Dashboard</h4></a>
+			<a href='/clouds'><h4 class='nav-item'>Feed</h4></a>
+			<a href='/about'><h4 class='nav-item'>About</h4></a>
+			<a href='/logout'><h4 class='nav-item'>Logout</h4></a>		
+		</div>
+	<% }else{ %>
+		<div>
+			<a href='/signup'><h4 class='nav-item'>Sign Up</h4></a>
+			<a href='/login'><h4 class='nav-item'>Log In</h4></a>		
+		</div>
+	<% } %>
+</nav>
