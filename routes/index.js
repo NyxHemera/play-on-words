@@ -6,14 +6,14 @@ var User = require('../models/users');
 
 // Home Page
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express', message: req.flash() });
+	res.render('index', { title: 'Express', message: req.flash(), loggedIn: currentUser });
 });
 
 
 // Signup Page
 router.route('/signup')
 	.get(function(req, res, next) {
-		res.render('signup.ejs', { message: req.flash() });
+		res.render('signup.ejs', { message: req.flash(), loggedIn: currentUser });
 	})
 	.post(function(req, res, next) {
 		var signUpStrategy = passport.authenticate('local-signup', {
@@ -27,7 +27,7 @@ router.route('/signup')
 // Login Page
 router.route('/login')
 	.get(function(req, res, next) {
-		res.render('login.ejs', { message: req.flash() });
+		res.render('login.ejs', { message: req.flash(), loggedIn: currentUser });
 	})
 	.post(function(req, res, next) {
 		User.findOne({'local.email': req.body.email}, function(err, user) {

@@ -36,7 +36,7 @@ function cloudOwner(req) {
 
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-  res.send('<h1>USERS PAGE</h1>');
+  res.render('users/index.ejs', {loggedIn: currentUser});
 });
 
 // GET User Profile
@@ -44,7 +44,7 @@ router.get('/:id', authenticate,function(req, res, next) {
   User.findById(req.params.id)
   .populate('clouds')
   .exec(function(err, user) {
-    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name, owner: authorized(req) });
+    res.render('users/user.ejs', { user: user, title: 'Profile-'+user.first_name, owner: authorized(req), loggedIn: currentUser });
   });
 });
 
@@ -55,7 +55,7 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
     User.findById(req.params.id)
     .then(function(user) {
       if (!user) return next(makeError(res, 'Document not found', 404));
-        res.render('edituser', { user: user, message: '' });
+        res.render('users/edituser.ejs', { user: user, message: '', loggedIn: currentUser });
     }, function(err) {
       return next(err);
     });
@@ -82,7 +82,7 @@ router.put('/:id',authenticate, function(req, res, next) {
       else {
         // Send an error message back to the user
         // res.redirect('/users/'+ currentUser._id + '/edit', req.flash('Your password failed validation'));
-        res.render ('edituser', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
+        res.render ('users/edituser.ejs', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
         // res.redirect('/users/'+ currentUser._id + '/edit');
       }
 
@@ -130,11 +130,11 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   if(authorized(req)) {
     Cloud.findById(req.params.cid)
     .then(function(cloud) {
-      console.log('cid is ' , req.params.cid,'id is ', req.params.id, 'and modelcloud user is ', cloud.user);
-      res.render('cloud.ejs', {
+      res.render('clouds/cloud.ejs', {
         user: currentUser,
         title: 'Cloud-'+cloud.name,
-        cloud: cloud
+        cloud: cloud,
+        loggedIn: currentUser
       });
     });
   }else {
@@ -150,21 +150,37 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 		.then(function(cloud) {
 			// If cloud doesn't exist, 404 error
 			if (!cloud) return next(makeError(res, 'Document not found', 404));
-
+      console.log(cloud.text);
+      console.log('!!!!');
+      console.log(req.body);
 			cloud.text = req.body.text;
-			cloud.name = req.body.name;
-			cloud.private = req.body.private;
-			cloud.palette = req.body.palette;
+      cloud.image = req.body.image;
+      console.log(cloud.text);
+			// cloud.name = req.body.name;
+			// cloud.private = req.body.private;
+			// cloud.palette = req.body.palette;
 			return cloud.save();
 		})
 		.then(function(saved) {
-			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.id);
+			res.redirect('/users/'+req.params.id+'/clouds/'+req.params.cid);
 		}, function(err) {
 			return next(err);
 		});
 	}else {
 		res.redirect('/');
 	}
+});
+
+// DESTROY
+router.delete('/:id/clouds/:cid', authenticate, function(req, res, next) {
+  if(authorized(req) && cloudOwner(req)) {
+    Cloud.findByIdAndRemove(req.params.cid)
+    .then(function() {
+      res.redirect('/users/'+req.params.id);
+    }, function(err) {
+      return next(err);
+    });
+  }
 });
 
 module.exports = router;

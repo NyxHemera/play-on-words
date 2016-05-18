@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/cloud.css">
   </head>
        <body class="cloud-page">
+       <% include ../partials/nav %>
           <!-- <div class="topSection">
               <div> </div>
           </div> -->
@@ -24,20 +25,38 @@
                   <textarea id="wc-text-input"><%= cloud.text %></textarea>
               </div>
                 <div class="buttons">
-                  <button id="btn-save">Save</button>
-                  <button id="btn-delete">Delete</button>
+                  <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
+                  <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
+                  <input id="wc-image-input" name='image' type="hidden"/>
+                  <input id="textInput" name='text' type="hidden" />
+                  </form>
+                  <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
+                      <input class="size-button" type="submit" value="Delete"/>
+                  </form>
                  </div>
                </div>
           <div class="seperator"> </div>
-          <div class="word-display"> </div>
+          <div class="word-display">
+            <ul>
+            <div class="tag-display">
+            <% cloud.tags.forEach(function(tag){ %>
+            <li class="tag-display"> <%= tag.text %></li>
+            <% }); %>
+            </div>
+            </ul>
+          </div>
        </body>
       <script type="text/javascript">
         $('#wc-text-input').on('input', function() {
           generateWC(getWCArr($('#wc-text-input').val()));
         });
-        $('#btn-save').on('click', function() {
-          console.log("save to DB");
-          console.log(getWCObj($('#wc-text-input').val()));
-         });
+        function fillInputs() {
+              var dataURL = document.getElementById('wc-canvas').toDataURL('image/png');
+              //$('#wc-image-input').val('http://www.infobarrel.com/media/image/54054.jpg');
+              $('#wc-image-input').val(dataURL);
+              var holdText = $('#wc-text-input').val();
+              $('#textInput').val(holdText);
+;            }
+
       </script>
 </html>
