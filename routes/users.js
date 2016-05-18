@@ -44,7 +44,7 @@ router.get('/:id', authenticate,function(req, res, next) {
   User.findById(req.params.id)
   .populate('clouds')
   .exec(function(err, user) {
-    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name });
+    res.render('user.ejs', { user: user, title: 'Profile-'+user.first_name, owner: authorized(req) });
   });
 });
 
@@ -106,12 +106,12 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
       image: req.body.image,
       mask: ""
     };
-    /*
+    /*------------------------------------------------------
   		Tags were being sent through as a broken string,
   		generating the tag object inside of the route ensures
   		that the display property is included and the structure
   		of the data is preserved.
-    */
+    ---------------------------------------------------------*/
     cloud.tags = WordPrep.getWCObj(cloud.text);
     Cloud.create([cloud], function(err, clouds) {
       currentUser.clouds.push(clouds[0]._id);
@@ -130,6 +130,7 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   if(authorized(req)) {
     Cloud.findById(req.params.cid)
     .then(function(cloud) {
+      console.log('cid is ' , req.params.cid,'id is ', req.params.id, 'and modelcloud user is ', cloud.user);
       res.render('cloud.ejs', {
         user: currentUser,
         title: 'Cloud-'+cloud.name,
