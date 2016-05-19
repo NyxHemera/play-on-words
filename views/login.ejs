@@ -3,18 +3,26 @@
 
 <head>
 	<title>Login</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/form.css' />
 </head>
 
 <body class="login-body">
 	<% include partials/nav %>
-	<form method="post" action="/login">
-		<label for="email">Email</label>
-		<input type="text" name="email" id="email">
-		<label for="password">Password</label>
-		<input type="password" name="password" id="password">
+      <div class="form-page" id="login-page">
+          <div class="login-text">
+              <h2 class="login-head" id="login-h2"> Test</h2>
+              <p class="login-head" id="login-p"> test</p>
+          </div>
+        	<form class="form-login" method="post" action="/login">
+        		<!-- <label class="form-label" for="email">Email</label> -->
+        		<input class="form-input" type="text" name="email" value="Email"  id="email">
+        		<!-- <label class="form-label" for="password">Password</label> -->
+        		<input class="form-input" type="password" name="password" value="Password" id="password">
 
-		<input type="submit">
-	</form>
+        		<input class="form-submit" type="submit">
+        	</form>
+      <div>
 </body>
 
 </html>

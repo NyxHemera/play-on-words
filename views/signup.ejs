@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html>
   <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
-
   <script type="text/javascript" src="javascripts/password.js"></script>
-  <link rel="stylesheet" type="text/css" href="stylesheets/wc.css">
+
 <head>
 	<title>Signup</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/form.css' />
 </head>
 
 <body class="signup-body">
 	<% include partials/nav %>
-	<form method="post" action="/signup">
-		<label for="email">Email</label>
-		<input type="text" name="email" id="email">
-		<label for="password">Password</label>
-		<input type="password" name="password" id="password">
-    <label for="first_name">First Name</label>
-    <input type="text" name="First Name" id="first_name">
-    <label for="last_Name">Last Name</label>
-    <input type="text" name="Last Name" id="last_Name">
-    <label for="twitter">Twitter</label>
-    <input type="text" name="Twitter handle" id="twitter">
+    <div class="form-page" id="sign-page">
+        <div class="sign-text">
+              <h2 class="login-head" id="login-h2"> Test</h2>
+              <p class="login-head" id="login-p"> test</p>
+          </div>
+      	<form class="form-signup" method="post" action="/signup">
+      		<!-- <label class="form-label" for="email">Email</label> -->
+      		<input class="form-input" type="text" name="email" id="email">
+      		<!-- <label class="form-label" for="password">Password</label> -->
+      		<input class="form-input" type="password" name="password" id="password">
+         <!--  <label class="form-label" for="first_name">First Name</label> -->
+          <input class="form-input" type="text" name="First Name" id="first_name">
+         <!--  <label class="form-label" for="last_Name">Last Name</label> -->
+          <input class="form-input" type="text" name="Last Name" id="last_Name">
+          <!-- <label class="form-label" for="twitter">Twitter</label> -->
+          <input class="form-input" type="text" name="Twitter handle" id="twitter">
 
-		<input type="submit">
-	</form>
+      		<input type="submit">
+      	</form>
+      </div>
 </body>
 
 </html>
