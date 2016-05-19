@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html>
 
-  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+
+  <head>
+    <title><%= title %></title>
+    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
   <script type="text/javascript" src="/javascripts/wordcloud2.js"></script>
   <script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
   <script type="text/javascript" src="/javascripts/wordprep.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/cloud.css">
-  <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-  <body>
 
-  	<% include partials/nav %>
+ <body class="cloud-page">
+    <% include ../views/partials/nav %>
+
+
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <img src="#">
+
+    <div class="center-page">
+              <div class="cloud-display">
+                  <div class="wc-wrap">
+                    <canvas id="wc-canvas"></canvas>
+                    <div id="wc-div"></div>
+                  </div>
+                  <div class="text-box-wrap">
+                      <div class="buttons">
+
+                      <input id="wc-image-input" name='image' type="hidden"/>
+                      <input id="textInput" name='text' type="hidden" />
+                      </form>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
   </body>
+
 </html>
