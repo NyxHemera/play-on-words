@@ -8,43 +8,44 @@
   <script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
   <script type="text/javascript" src="/javascripts/wordprep.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/cloud.css">
   </head>
-       <body class="cloud-page">
+    <body class="cloud-page">
        <% include ../partials/nav %>
           <!-- <div class="topSection">
               <div> </div>
           </div> -->
-          <div class="cloud-display">
-              <div class="wc-wrap">
-                <canvas id="wc-canvas"></canvas>
-                <div id="wc-div"></div>
-              </div>
-              <div class="text-box-wrap">
-                  <textarea id="wc-text-input"><%= cloud.text %></textarea>
-              </div>
-                <div class="buttons">
-                  <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
-                  <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
-                  <input id="wc-image-input" name='image' type="hidden"/>
-                  <input id="textInput" name='text' type="hidden" />
-                  </form>
-                  <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
-                      <input class="size-button" type="submit" value="Delete"/>
-                  </form>
-                 </div>
-               </div>
-          <div class="seperator"> </div>
-          <div class="word-display">
-            <ul>
-            <div class="tag-display">
-            <% cloud.tags.forEach(function(tag){ %>
-            <li class="tag-display"> <%= tag.text %></li>
-            <% }); %>
+          <div class="center-page">
+              <div class="cloud-display">
+                  <div class="wc-wrap">
+                    <canvas id="wc-canvas"></canvas>
+                    <div id="wc-div"></div>
+                  </div>
+                  <div class="text-box-wrap">
+                      <textarea id="wc-text-input"><%= cloud.text %></textarea>
+                      <div class="buttons">
+                      <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
+                      <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
+                      <input id="wc-image-input" name='image' type="hidden"/>
+                      <input id="textInput" name='text' type="hidden" />
+                      </form>
+                      <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
+                          <input class="size-button" type="submit" value="Delete"/>
+                      </form>
+                    </div>
+                  </div>
+                </div>
             </div>
-            </ul>
-          </div>
+            <div class="seperator"> </div>
+            <div class="word-display">
+              <ul>
+              <div class="tag-display-wrap">
+              <% cloud.tags.forEach(function(tag){ %>
+              <li class="tag-display"> <%= tag.text %></li>
+              <% }); %>
+              </div>
+              </ul>
+            </div>
        </body>
       <script type="text/javascript">
         $('#wc-text-input').on('input', function() {

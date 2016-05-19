@@ -106,8 +106,8 @@ $(document).ready(function() {
 	window.addEventListener('resize', resizeCanvas, false);
 
 	function resizeCanvas() {
-		canvas.width = window.innerWidth/2;
-		canvas.height = window.innerHeight/2;
+		canvas.width = window.innerWidth/100*60;
+		canvas.height = window.innerHeight/100*60;
 		generateWC(getWCArr($('#wc-text-input').val()));
 	}
 

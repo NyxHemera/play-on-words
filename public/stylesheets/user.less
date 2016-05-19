@@ -1,3 +1,28 @@
+.bodyUser {
+	width: 98vw;
+	margin: 0 auto;
+}
+
+.gallery-image {
+	width: 30vw;
+	margin: 1vw;
+	display: inline-block;
+	img {
+		max-width: 100%;
+		margin: 0 auto;
+		display: block;
+	}
+}
+
+.thumbGallery {
+	margin: 0 auto;
+	padding: 1vh 1vw;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
 .wrap-create {
 	width: 100vw;
 	display: flex;
@@ -18,5 +43,11 @@
 			max-height: 25vw;
 			height: 25vw;
 		}
+	}
+}
+
+@media only screen and (max-device-width: 768px) {
+	.gallery-image {
+		width: 46vw;
 	}
 }
