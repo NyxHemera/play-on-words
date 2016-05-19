@@ -4,3 +4,7 @@ body{
   background-image: url("/images/abstract_lights.jpg");
   background-position: 0px -470px;
 }
+
+::-webkit-scrollbar { 
+    display: none; 
+}
