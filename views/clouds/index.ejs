@@ -6,22 +6,23 @@
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/cloud.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/user.css">
 
 <head>
 	<title>Cloud Gallery</title>
 </head>
 <body>
 	<% include ../partials/nav %>
-	<h1>Cloud Gallery</h1>
-  <ul>
-    <div class="tag-display">
-    <% clouds.forEach(function(cloud){ %>
-
-    <li>   <img src="<%= cloud.image %>">      </li>
-    <% }); %>
-    </div>
-  </ul>
+  <h1>Cloud Gallery</h1>
+  <div class="thumbGallery">
+    <% if(clouds.length) { %>
+      <% for(var i=0; i<clouds.length; i++) { %>
+      <div class="gallery-image">
+        <a href="/clouds/<%= clouds[i]._id %>"><img src=<%= clouds[i].image %>></a>
+      </div>
+      <% } %>
+    <% } %>
+  </div>
 
 </body>
 </html>
