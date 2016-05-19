@@ -16,11 +16,14 @@
 
 .thumbGallery {
 	margin: 0 auto;
+	margin-top: 1vh;
 	padding: 1vh 1vw;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
+	background-color: rgba(0,0,0,.5);
+	border-radius: 10px;
 }
 
 .wrap-create {
@@ -30,18 +33,23 @@
 	justify-content: space-between;
 	align-items: center;
 	> .wc-wrap {
-		width: 50vw;
-		height: 50vh;
+		width: 60vw;
 	}
 	> .wc-entry-wrap {
-		width: 50vw;
-		height: 50vh;
-		> #wc-text-input {
+		width: 35vw;
+		form {
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			align-items: center;
+			#btn-save {
+				margin-top: 1vh;
+			}
+		}
+		#wc-text-input {
 			margin: 0 auto;
-			max-width: 48vw;
-			width: 48vw;
-			max-height: 25vw;
-			height: 25vw;
+			width: 80%;
+			height: 20vh;
 		}
 	}
 }
