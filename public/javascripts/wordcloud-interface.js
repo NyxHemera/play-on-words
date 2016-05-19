@@ -112,7 +112,7 @@ $(document).ready(function() {
 			generateWC(getWCArr($('#wc-text-input').val()));
 		}else {
 			//generateWC(getWCArr($('#cloud-about').text()));
-			generateWC(getWCArr('Whats a word cloud? An attractive arrangement of randomly positioned words, where the more frequent words are bigger than the others.  It is also a good wayto see what words are referenced more than others. What are they for Mostly for fun! ...and now you can try it out yourself by signing up. Login to see all the word cloud that others built too.'));
+			generateWC(getWCArr('What is a word cloud? It is an attractive arrangement of randomly positioned words, where the more frequent words are bigger than the others.  It is also a good wayto see what words are referenced more than others. What are they for Mostly for fun! ...and now you can try it out yourself by signing up. Login to see all the word cloud that others built too. wdi wdi wdi wdi wdi wdi wdi wdi wdi wdi  awesome awesome awesome awesome awesome awesome awesome awesome awesome awesome awesome'));
 		}
 	}
 
