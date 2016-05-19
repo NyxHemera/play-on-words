@@ -2,12 +2,12 @@
 <html>
 	<head>
 	<title><%= title %></title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css">
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript" src="/javascripts/wordcloud2.js"></script>
 	<script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
 	<script type="text/javascript" src="/javascripts/wordprep.js"></script>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css">
 	</head>
 	<body>
 		<% include ../partials/nav %>
@@ -28,7 +28,6 @@
 					</div>
 				</div>
 				<div class="thumbGallery">
-					<h1>Gallery</h1>
 					<% if(user.clouds.length) { %>
 						<% for(var i=0; i<user.clouds.length; i++) { %>
 						<div class="gallery-image">
