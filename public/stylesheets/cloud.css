@@ -2,7 +2,7 @@
 .cloud-page{
   /*background-color: #DDDBCB;*/
   background-color: #f7f7f7;
-  background-image: url("/images/canvas-multi.jpg");
+  background-image: url("/images/abstract_lights.jpg");
 }
 
 
@@ -83,6 +83,7 @@
 }
 .size-button-form{
   width: 60px;
+  display: inline-block;
 }
 
 .word-display{

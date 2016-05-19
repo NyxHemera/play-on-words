@@ -1,7 +1,8 @@
 body{
   margin: 0;
   padding: 0;
-  background-image: url("/images/canvas-multi.jpg");
+  background-image: url("/images/abstract_lights.jpg");
+  background-position: 0px -470px;
 }
 
 ::-webkit-scrollbar { 
