@@ -9,30 +9,27 @@
     <script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
     <script type="text/javascript" src="/javascripts/wordprep.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
+
     <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
   </head>
 
  <body>
     <% include ../views/partials/nav %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <div class="outer-wrap">
 
-    <div class="cloud-display">
-      <p>hello</p>
-    </div>
-    <div class="cloud-about">
-      <p>What's a word cloud?
-An attractive arrangement of randomly positioned words, where the more frequent words are bigger than the others.  It is also a good way
-to see what words are referenced more than others.
+          <div class="wc-wrap">
+            <canvas id="wc-canvas"></canvas>
+            <div id="wc-div"></div>
+          </div>
+          <div class="about">
+            <article id="cloud-about">Whats a word cloud? An attractive arrangement of randomly positioned words,
+            where the more frequent words are bigger than the others.  It is also a good wayto see what words are
+            referenced more than others. What are they for Mostly for fun! ...and now you can try it out yourself by
+            igning up. Login to see all the word cloud that others built too. WDI is Awesome WDI is Awesome WDI is
+            Awesome WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome  WDI is Awesome WDI is Awesome WDI is Awesome WDI is Awesome </article>
 
-What are they for?
-Mostly for fun! ...and now you can try it out yourself by signing up.  Login to see all the word cloud that others built too.  </p>
-    </div>
-    </div>
+            </div>
+
 
 
   </body>
-
 </html>
