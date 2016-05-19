@@ -12,21 +12,23 @@
 	<body>
 		<% include ../partials/nav %>
 		<div class="bodyUser">
-				<button onclick="toggleWrapCreate()">Create +</button>
-				<div class="wrap-create">
-					<div class="wc-wrap">
-						<canvas id="wc-canvas"></canvas>
-						<div id="wc-div"></div>
+			  <% if (owner) { %>
+					<button onclick="toggleWrapCreate()">Create +</button>
+					<div class="wrap-create">
+						<div class="wc-wrap">
+							<canvas id="wc-canvas"></canvas>
+							<div id="wc-div"></div>
+						</div>
+						<div class='wc-entry-wrap'>
+							<form method="POST" action="/users/<%= user._id %>/clouds">
+								<textarea id="wc-text-input" name="text"></textarea>
+								<input id="wc-image-input" name='image' type="hidden"/>
+								<input id="wc-tags" name='tags' type='hidden'/>
+								<input id="btn-save" type="submit" onclick="fillInputs()"></input>
+							</form>
+						</div>
 					</div>
-					<div class='wc-entry-wrap'>
-						<form method="POST" action="/users/<%= user._id %>/clouds">
-							<textarea id="wc-text-input" name="text"></textarea>
-							<input id="wc-image-input" name='image' type="hidden"/>
-							<input id="wc-tags" name='tags' type='hidden'/>
-							<input id="btn-save" type="submit" onclick="fillInputs()"></input>
-						</form>
-					</div>
-				</div>
+				<% } %>
 				<div class="thumbGallery">
 					<h1>Gallery</h1>
 					<% if(user.clouds.length) { %>
