@@ -14,11 +14,14 @@
 }
 .thumbGallery {
   margin: 0 auto;
+  margin-top: 1vh;
   padding: 1vh 1vw;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 .wrap-create {
   width: 100vw;
@@ -28,19 +31,24 @@
   align-items: center;
 }
 .wrap-create > .wc-wrap {
-  width: 50vw;
-  height: 50vh;
+  width: 60vw;
 }
 .wrap-create > .wc-entry-wrap {
-  width: 50vw;
-  height: 50vh;
+  width: 35vw;
 }
-.wrap-create > .wc-entry-wrap > #wc-text-input {
+.wrap-create > .wc-entry-wrap form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.wrap-create > .wc-entry-wrap form #btn-save {
+  margin-top: 1vh;
+}
+.wrap-create > .wc-entry-wrap #wc-text-input {
   margin: 0 auto;
-  max-width: 48vw;
-  width: 48vw;
-  max-height: 25vw;
-  height: 25vw;
+  width: 80%;
+  height: 20vh;
 }
 @media only screen and (max-device-width: 768px) {
   .gallery-image {

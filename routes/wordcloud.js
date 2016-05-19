@@ -27,18 +27,19 @@ router.get('/', authenticate, function(req, res, next) {
   });
 });
 
-/*//show
+//show
 router.get('/:id',function(req,res,next){
   WordCloud.findById(req.params.id)
   .then (function(wordCloud){
     if (!wordCloud) return next(makeError(res, "ID not found",404));
-      res.send ("showing");
+      res.render('clouds/cloudshow.ejs', {cloud: wordCloud, loggedIn: currentUser});
     },
     function(err){
       return next(err);
     });
-}); //router.get show
+});
 
+/*
 // CREATE
 router.post('/', authenticate, function(req, res, next) {
   var wordCloud = new WordCloud({
