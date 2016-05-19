@@ -23,16 +23,16 @@
                   </div>
                   <div class="text-box-wrap">
                       <textarea id="wc-text-input"><%= cloud.text %></textarea>
-                  </div>
-                  <div class="buttons">
-                    <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
-                    <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
-                    <input id="wc-image-input" name='image' type="hidden"/>
-                    <input id="textInput" name='text' type="hidden" />
-                    </form>
-                    <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
-                        <input class="size-button" type="submit" value="Delete"/>
-                    </form>
+                      <div class="buttons">
+                      <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">
+                      <button class="size-button" id="btn-save" onclick="fillInputs()">Save</button>
+                      <input id="wc-image-input" name='image' type="hidden"/>
+                      <input id="textInput" name='text' type="hidden" />
+                      </form>
+                      <form class="size-button-form" method="post"  action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=DELETE">
+                          <input class="size-button" type="submit" value="Delete"/>
+                      </form>
+                    </div>
                   </div>
                 </div>
             </div>
