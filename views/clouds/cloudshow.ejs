@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/javascripts/wordcloud2.js"></script>
+    <script type="text/javascript" src="/javascripts/wordcloud-interface.js"></script>
+    <script type="text/javascript" src="/javascripts/wordprep.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/cloudshow.css">
+  <head>
+    <title>Cloud Showing</title>
+
+  </head>
+
+   <body>
+      <% include ../partials/nav %>
+      <div class="wc-wrap">
+        <canvas id="wc-canvas"></canvas>
+        <div id="wc-div"></div>
+      </div>
+      <div id="details">
+      <article>
+        <p><%= cloud.text %></p>
+      </article>
+
+      </div>
+      <textarea style="display: none" id="wc-text-input"><%= cloud.text %></textarea>
+    </body>
+
+</html>
+
