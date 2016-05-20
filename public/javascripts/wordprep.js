@@ -9,6 +9,23 @@ var parseWCString = function(userString) {
 
         arrayOfWords = stripFillerWords(arrayOfWords);
 
+        for(var i=0; i<arrayOfWords.length; i++) {
+          var splitWord = arrayOfWords[i].split("");
+          for(var j=0; j<splitWord.length; j++) {
+            if(splitWord[j] == " ") {
+              splitWord[j] = "";
+            }
+          }
+          arrayOfWords[i] = splitWord.join("");
+        }
+
+        for(var i=0; i<arrayOfWords.length; i++) {
+          if(arrayOfWords[i].length === 0) {
+            arrayOfWords.splice(i, 1);
+            i--;
+          }
+        }
+
         return arrayOfWords;
 }
 //-------------------------------------------------------/
