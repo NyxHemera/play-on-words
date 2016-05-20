@@ -18,18 +18,18 @@
   height: 30vh;
   max-width: 60vw;
   width: 35vw;
-  max-height: 60vh;
-  height: 40vh;
+  max-height: 80vh;
+  height: 60vh;
   color: #f7f7f7;
   display: inline-block;
-  font-size: 25px;
+  font-family: Helvetica;
+  font-size: 22px;
   padding: 1vw;
   float: right;
   margin-right: 20px;
   margin-top: 120px;
   background-color: rgba(0, 0, 0, 0.5);
   overflow: scroll;
-
 }
 
 
