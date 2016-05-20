@@ -19,6 +19,9 @@ var strategy = new LocalStrategy({
         var newUser            = new User();
         newUser.local.email    = email;
         newUser.local.password = newUser.encrypt(password);
+        newUser.first_name = req.body.first_name;
+        newUser.last_name = req.body.last_Name;
+        newUser.twitter = req.body.twitter;
 
         newUser.save(function(err) {
           return callback(err, newUser);
