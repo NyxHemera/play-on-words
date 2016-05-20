@@ -79,6 +79,11 @@
   font-size: 1.8em;
 }
 
+.private-box {
+  display: inline-block;
+  float: left;
+}
+
 .buttons{
   margin-top:10px;
   /*width: 200px;*/
