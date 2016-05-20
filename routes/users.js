@@ -51,7 +51,6 @@ router.get('/', authenticate, function(req, res, next) {
   //res.render('users/index.ejs', {loggedIn: currentUser});
 });
 
-// GET User Profile
 //------------------------------------------------//
 //  Get User Profile                              //
 //------------------------------------------------//
@@ -122,7 +121,7 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
       p = true;
     }else {
       p = false;
-    }    
+    }
     var cloud = {
       name: req.body.name,
       text: req.body.text,
@@ -190,7 +189,7 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
       }else {
         cloud.private = false;
       }
-			
+
 			// cloud.palette = req.body.palette;
 			return cloud.save();
 		})
