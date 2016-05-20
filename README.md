@@ -2,9 +2,9 @@
 
 ### App Info
 
-This app is a word cloud generator.
+This app is a word cloud generator. This app allows users to create a profile, generate word and save word clouds and share them with other users.
 
-[Play on words] (https://##### herokuapp.com/)
+[Play-On-Words] (https://afternoon-bastion-47484.herokuapp.com/)
 
 ### Trello:
 
@@ -14,21 +14,26 @@ This app is a word cloud generator.
 
 - Heroku
 - Javascript
-- Mongo.js
+- Mongo.db
 - Express.js
 - Node.js
 - Balsamiq
-- (photoeditor)
+- GIMP
+- HTML / CSS
+- Word-Cloud-2
+
+
 
 
 ### Model Diagram
-![Homepage](http://_____.jpg)
-![UserProfile](http://_____.jpg)
-![Photoview](http://_____.jpg)
+![Home Page](http://i.imgur.com/Tas2eU7.png)
+![User Profile](http://i.imgur.com/MqAA23I.png)
+![Cloud View](http://i.imgur.com/M9G4OxA.png)
 
 ###  Future Updates
  - Add color palette options for word clouds
  - Allow user to change shape of word cloud
+ - Allow word tags to be deleted from bottom display.
 
 
 
