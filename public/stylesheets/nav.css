@@ -4,10 +4,11 @@ body {
 }
 #wrap-nav {
   display: flex;
+  text-shadow: 1px 1px 3px #000;
   width: 100vw;
   height: 6vh;
   color: #f7f7f7;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.75);
   flex-flow: row nowrap;
   justify-content: space-between;
