@@ -48,13 +48,14 @@
 
 .text-box-wrap{
   /*position: absolute;*/
-  height: 35vh;
   max-width: 45vw;
   width: 33vw;
-  max-height: 40vh;
-  height: 30vh;
   /*min-width: 300px;*/
   vertical-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 /*#wc-text-input{
@@ -80,8 +81,8 @@
 }
 
 .private-box {
-  display: inline-block;
-  float: left;
+  position: relative;
+  left: 0;
 }
 
 .buttons{
