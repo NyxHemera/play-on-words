@@ -1,3 +1,6 @@
+//------------------------------------------------//
+//  Clouds routes                                 //
+//------------------------------------------------//
 var express = require('express');
 var router = express.Router();
 var WordCloud = require('../models/wordclouds');
@@ -27,7 +30,9 @@ router.get('/', authenticate, function(req, res, next) {
   });
 });
 
-//show
+//------------------------------------------------//
+//  Show a cloud from Gallery                     //
+//------------------------------------------------//
 router.get('/:id',function(req,res,next){
   WordCloud.findById(req.params.id)
   .then (function(wordCloud){
