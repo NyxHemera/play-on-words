@@ -7,9 +7,6 @@
 
 .cloud-display{
     margin-top: 30px;
-
-
-
 }
 .wc-wrap {
   position: relative;
@@ -64,8 +61,6 @@
   /*border-radius: 10px;*/
   padding: 15px;
   box-sizing: border-box;
-
-
 }
 
 .buttons{
@@ -88,16 +83,12 @@
 .word-display{
   margin: auto;
   width: 60vw;
-
-
-
 }
 .tag-display{
    display: inline-block;
    margin-left: 25px;
    margin: 10px;
    padding: 10px 15px;
-
    background-color: #DDDBCB;
    border-radius: 5px;
    font-size: 18px;
@@ -109,8 +100,6 @@
 .center-page{
   margin-left: 2vw;
   margin-right: 2vw;
-
-
 }
 
 /*.seperator{
