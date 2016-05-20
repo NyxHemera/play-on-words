@@ -6,14 +6,24 @@
   background-color: rgba(0,0,0,.4);
   color: white;
   }
-
+.form-input{
+  margin-top: 1vh;
+  height: 5vh;
+  width: 25vw;
+  padding-left: 20px;
+  font-size: 14px;
+}
 
 /* --- login --- */
 .login-text{
   display: inline-block;
   width: 50%;
+  margin-left: 20px;
+  text-align: center;
 
-
+}
+.form-head{
+  font-size: 40px;
 }
 .form-login{
   display: inline-flex;
@@ -23,13 +33,10 @@
 
 
 }
-.form-input{
-  margin-top: 1vh;
-  height: 5vh;
-  width: 25vw;
-}
+
 .form-submit{
   margin-top: 1vh;
+
 }
 .login-page{
 
@@ -60,4 +67,7 @@
 .sign-text{
   display: inline-block;
   width: 50%;
+  text-align: center;
 }
+
+
