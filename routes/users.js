@@ -21,10 +21,16 @@ function authenticate(req, res, next) {
   }
 }
 
+//------------------------------------------------//
+//  Check if current user is same user as login   //
+//------------------------------------------------//
 function authorized(req) {
 	return ""+currentUser._id === req.params.id;
 }
 
+//------------------------------------------------//
+//  Check if cloud belongs to current user        //
+//------------------------------------------------//
 function cloudOwner(req) {
 	var CID = req.params.cid;
 	for(var i=0; i<currentUser.clouds.length; i++) {
@@ -34,12 +40,17 @@ function cloudOwner(req) {
 	return false;
 }
 
-// GET Users listing
+//------------------------------------------------//
+//  Home route for Current login user             //
+//------------------------------------------------//
 router.get('/', authenticate, function(req, res, next) {
   res.render('users/index.ejs', {loggedIn: currentUser});
 });
 
 // GET User Profile
+//------------------------------------------------//
+//  Get User Profile                              //
+//------------------------------------------------//
 router.get('/:id', authenticate,function(req, res, next) {
   User.findById(req.params.id)
   .populate('clouds')
@@ -48,7 +59,9 @@ router.get('/:id', authenticate,function(req, res, next) {
   });
 });
 
-// GET User Edit
+//------------------------------------------------//
+//  Edit/Get Current User Profile                 //
+//------------------------------------------------//
 router.get('/:id/edit', authenticate,function(req, res, next) {
 
   if (authorized(req)) {
@@ -66,7 +79,9 @@ router.get('/:id/edit', authenticate,function(req, res, next) {
 });
 
 
-// UPDATE User (NEEDS AUTHORIZATION WITH REDIRECT)
+//------------------------------------------------//
+//  Update User Profile                           //
+//------------------------------------------------//
 router.put('/:id',authenticate, function(req, res, next) {
   User.findById(req.params.id) //find again..as its stateless like rails
   .then(function(user) {
@@ -80,12 +95,9 @@ router.put('/:id',authenticate, function(req, res, next) {
         user.twitter = req.body.twitter;
       }
       else {
-        // Send an error message back to the user
-        // res.redirect('/users/'+ currentUser._id + '/edit', req.flash('Your password failed validation'));
         res.render ('users/edituser.ejs', {user: user, message: 'Error: password has to be alphanumic plus at least one capital letter' });
         // res.redirect('/users/'+ currentUser._id + '/edit');
       }
-
       return user.save(); //merge w data in db
    })
   .then(function(saved) {
@@ -95,6 +107,9 @@ router.put('/:id',authenticate, function(req, res, next) {
   });
 });
 
+//------------------------------------------------//
+//  Post generated Cloud                          //
+//------------------------------------------------//
 router.post('/:id/clouds', authenticate, function(req, res, next) {
   if(authorized(req)) {
     var cloud = {
@@ -125,7 +140,9 @@ router.post('/:id/clouds', authenticate, function(req, res, next) {
   }
 });
 
-// GET Cloud Page
+//------------------------------------------------//
+//  GET Cloud Page                                //
+//------------------------------------------------//
 router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   if(authorized(req)) {
     Cloud.findById(req.params.cid)
@@ -142,7 +159,9 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
   }
 });
 
-// PUT Cloud Page
+//------------------------------------------------//
+//  PUT Cloud Page                                //
+//------------------------------------------------//
 router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 	// Needs extra authZ check to make sure cloud belongs to user ID
 	if(authorized(req) && cloudOwner(req)) {
@@ -171,7 +190,9 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 	}
 });
 
-// DESTROY
+//------------------------------------------------//
+//  DESTROY Cloud                                 //
+//------------------------------------------------//
 router.delete('/:id/clouds/:cid', authenticate, function(req, res, next) {
   if(authorized(req) && cloudOwner(req)) {
     Cloud.findByIdAndRemove(req.params.cid)
