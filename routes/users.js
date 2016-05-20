@@ -36,7 +36,8 @@ function cloudOwner(req) {
 
 // GET Users listing
 router.get('/', authenticate, function(req, res, next) {
-  res.render('users/index.ejs', {loggedIn: currentUser});
+  res.redirect('/users/'+currentUser._id);
+  //res.render('users/index.ejs', {loggedIn: currentUser});
 });
 
 // GET User Profile
