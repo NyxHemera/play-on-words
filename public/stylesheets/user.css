@@ -76,3 +76,8 @@
     width: 46vw;
   }
 }
+
+ /* style to adjust buttom placement */
+.createButton{
+   margin-top:10px;
+}
