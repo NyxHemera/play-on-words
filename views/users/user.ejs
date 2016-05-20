@@ -38,9 +38,11 @@
 				<div class="thumbGallery">
 					<% if(user.clouds.length) { %>
 						<% for(var i=0; i<user.clouds.length; i++) { %>
+						<% if(owner || !user.clouds[i].private) { %>
 						<div class="gallery-image">
 							<a href="/users/<%= user._id %>/clouds/<%= user.clouds[i]._id %>"><img src=<%= user.clouds[i].image %>></a>
 						</div>
+						<% } %>
 						<% } %>
 					<% }else {%>
 						<h3>You have no clouds! Why not try making one?</h3>
