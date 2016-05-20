@@ -31,9 +31,11 @@ This app is a word cloud generator. This app allows users to create a profile, g
 ![Cloud View](http://i.imgur.com/M9G4OxA.png)
 
 ###  Future Updates
- - Add color palette options for word clouds
- - Allow user to change shape of word cloud
+ - Add color palette options for word clouds.
+ - Allow user to change shape of word cloud.
  - Allow word tags to be deleted from bottom display.
+ - Switch word cloud generator algorithm.
+ - Implement Twitter and Facebook API.
 
 
 
