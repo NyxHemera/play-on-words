@@ -174,6 +174,7 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
       console.log(req.body);
 			cloud.text = req.body.text;
       cloud.image = req.body.image;
+      cloud.tags = WordPrep.getWCObj(cloud.text);
       console.log(cloud.text);
 			// cloud.name = req.body.name;
 			// cloud.private = req.body.private;

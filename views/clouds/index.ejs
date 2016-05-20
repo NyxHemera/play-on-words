@@ -5,24 +5,24 @@
   crossorigin="anonymous"></script>
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" type="text/css" href="/stylesheets/wc.css">
   <link rel="stylesheet" type="text/css" href="/stylesheets/user.css">
 
 <head>
 	<title>Cloud Gallery</title>
 </head>
-<body>
+<body style="text-align: center">
 	<% include ../partials/nav %>
-  <h1>Cloud Gallery</h1>
-  <div class="thumbGallery">
-    <% if(clouds.length) { %>
-      <% for(var i=0; i<clouds.length; i++) { %>
-      <div class="gallery-image">
-        <a href="/clouds/<%= clouds[i]._id %>"><img src=<%= clouds[i].image %>></a>
-      </div>
+  <div class="bodyUser">
+    <h1 class='title-cindex'>Cloud Gallery</h1>
+    <div class="thumbGallery">
+      <% if(clouds.length) { %>
+        <% for(var i=0; i<clouds.length; i++) { %>
+        <div class="gallery-image">
+          <a href="/clouds/<%= clouds[i]._id %>"><img src=<%= clouds[i].image %>></a>
+        </div>
+        <% } %>
       <% } %>
-    <% } %>
+    </div>
   </div>
-
 </body>
 </html>

@@ -62,8 +62,13 @@ function generateHTMLWC(wordArr) {
 }
 
 function generateCanvasWC(wordArr) {
-	WordCloud(document.getElementById('wc-canvas'), {
-		list: wordArr
+	$('#wc-canvas').fadeOut(200, function() {
+		$('#wc-canvas').fadeIn(300, function() {
+
+		});
+			WordCloud(document.getElementById('wc-canvas'), {
+				list: wordArr
+			});
 	});
 }
 
@@ -108,7 +113,7 @@ $(document).ready(function() {
 	function resizeCanvas() {
 		canvas.width = window.innerWidth/100*60;
 		canvas.height = window.innerHeight/100*60;
-		if($('#wc-text-input') === undefined) {
+		if($('#wc-text-input').length > 0) {
 			generateWC(getWCArr($('#wc-text-input').val()));
 		}else {
 			//generateWC(getWCArr($('#cloud-about').text()));
