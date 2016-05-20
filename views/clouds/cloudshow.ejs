@@ -7,7 +7,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/stylesheets/cloudshow.css">
   <head>
-    <title>Cloud</title>
+    <title>Cloud Showing</title>
 
   </head>
 
@@ -17,11 +17,13 @@
         <canvas id="wc-canvas"></canvas>
         <div id="wc-div"></div>
       </div>
-      <div class="details">
-      <p> <%= cloud.text %>
-      </p>
+      <div id="details">
+      <article>
+        <p><%= cloud.text %></p>
+      </article>
 
       </div>
+      <textarea style="display: none" id="wc-text-input"><%= cloud.text %></textarea>
     </body>
 
 </html>
