@@ -21,6 +21,7 @@
 						</div>
 						<div class='wc-entry-wrap'>
 							<form method="POST" action="/users/<%= user._id %>/clouds">
+								<input id='wc-name-input' type="text" name="name" value="WordCloud Title"></input>
 								<textarea id="wc-text-input" name="text"></textarea>
 								<input id="wc-image-input" name='image' type="hidden"/>
 								<input id="wc-tags" name='tags' type='hidden'/>

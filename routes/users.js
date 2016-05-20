@@ -99,7 +99,7 @@ router.put('/:id',authenticate, function(req, res, next) {
 router.post('/:id/clouds', authenticate, function(req, res, next) {
   if(authorized(req)) {
     var cloud = {
-      name: "Default Name",
+      name: req.body.name,
       text: req.body.text,
       user: currentUser._id,
       palette: 0,
@@ -151,14 +151,10 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 		.then(function(cloud) {
 			// If cloud doesn't exist, 404 error
 			if (!cloud) return next(makeError(res, 'Document not found', 404));
-      console.log(cloud.text);
-      console.log('!!!!');
-      console.log(req.body);
+      cloud.name = req.body.name;
 			cloud.text = req.body.text;
       cloud.image = req.body.image;
       cloud.tags = WordPrep.getWCObj(cloud.text);
-      console.log(cloud.text);
-			// cloud.name = req.body.name;
 			// cloud.private = req.body.private;
 			// cloud.palette = req.body.palette;
 			return cloud.save();
