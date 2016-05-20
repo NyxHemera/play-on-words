@@ -113,12 +113,19 @@ router.put('/:id',authenticate, function(req, res, next) {
 //------------------------------------------------//
 router.post('/:id/clouds', authenticate, function(req, res, next) {
   if(authorized(req)) {
+    console.log(req.body);
+    var p;
+    if(req.body.private === 'on') {
+      p = true;
+    }else {
+      p = false;
+    }    
     var cloud = {
       name: req.body.name,
       text: req.body.text,
       user: currentUser._id,
       palette: 0,
-      private: false,
+      private: p,
       image: req.body.image,
       mask: ""
     };
@@ -174,7 +181,13 @@ router.put('/:id/clouds/:cid', authenticate, function(req, res, next) {
 			cloud.text = req.body.text;
       cloud.image = req.body.image;
       cloud.tags = WordPrep.getWCObj(cloud.text);
-			// cloud.private = req.body.private;
+      console.log(req.body.private);
+      if(req.body.private === 'on') {
+        cloud.private = true;
+      }else {
+        cloud.private = false;
+      }
+			
 			// cloud.palette = req.body.palette;
 			return cloud.save();
 		})

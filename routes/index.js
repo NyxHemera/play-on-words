@@ -6,7 +6,7 @@ var User = require('../models/users');
 
 // Home Page
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express', message: req.flash(), loggedIn: currentUser });
+	res.render('index', { title: 'Play On Words', message: req.flash(), loggedIn: currentUser });
 });
 
 
