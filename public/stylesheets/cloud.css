@@ -78,10 +78,10 @@
 
 }
 .size-button {
-  width: 50px;
+ /* width: 50px;*/
 }
 .size-button-form{
-  width: 60px;
+/*  width: 60px;*/
   display: inline-block;
 }
 
@@ -112,6 +112,11 @@
 
 
 }
+
+#moveButton{
+  margin-left: 1vh;
+}
+
 
 /*.seperator{
   background-color: #ee6c4d;
