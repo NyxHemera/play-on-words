@@ -166,7 +166,7 @@ router.get('/:id/clouds/:cid', authenticate, function(req, res, next) {
       });
     });
   }else {
-    res.redirect('/');
+    res.redirect('/clouds/'+req.params.cid);
   }
 });
 
