@@ -22,6 +22,7 @@
                     <div id="wc-div"></div>
                   </div>
                   <div class="text-box-wrap">
+                      <input id='wc-name-input' form='saveForm' type="text" name="name" value="<%= cloud.name %>"></input>
                       <textarea id="wc-text-input"><%= cloud.text %></textarea>
                       <div class="buttons">
                       <form class="size-button-form" id="saveForm"  method="post" action="/users/<%= user._id %>/clouds/<%= cloud._id %>?_method=PUT">

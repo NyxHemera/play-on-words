@@ -59,8 +59,17 @@
 }
 .wrap-create > .wc-entry-wrap #wc-text-input {
   margin: 0 auto;
+  margin-top: 1vh;
   width: 80%;
   height: 20vh;
+  padding: 5px;
+  font-size: 1.3em;
+}
+.wrap-create > .wc-entry-wrap #wc-name-input {
+  margin: 0 auto;
+  width: 80%;
+  padding: 5px;
+  font-size: 1.8em;
 }
 @media only screen and (max-device-width: 768px) {
   .gallery-image {

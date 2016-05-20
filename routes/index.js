@@ -32,13 +32,16 @@ router.route('/login')
 	.post(function(req, res, next) {
 		User.findOne({'local.email': req.body.email}, function(err, user) {
 			if(err) return console.log(err);
-
-			var loginProperty = passport.authenticate('local-login', {
-				successRedirect: '/users/'+ user._id,
-				failureRedirect: '/login',
-				failureFlash: true
-			});
-			return loginProperty(req, res, next);
+			if(!user) {
+				res.redirect('/login');
+			}else {
+				var loginProperty = passport.authenticate('local-login', {
+					successRedirect: '/users/'+ user._id,
+					failureRedirect: '/login',
+					failureFlash: true
+				});
+				return loginProperty(req, res, next);
+			}
 		});
 	});
 
