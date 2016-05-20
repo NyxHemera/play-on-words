@@ -60,9 +60,15 @@
 			}
 		}
 
-		$('#wc-text-input').on('input', function() {
-			generateWC(getWCArr($('#wc-text-input').val()));
+		$('#wc-text-input').on('keydown', function(e) {
+			console.log(e);
+			if(e.keyCode === 32) {
+				generateWC(getWCArr($('#wc-text-input').val()));
+			}
 		});
+		$('#wc-text-input').on('change', function() {
+			generateWC(getWCArr($('#wc-text-input').val()));
+		})
 		$('#btn-save').on('click', function() {
 			console.log("save to DB");
 			console.log(getWCObj($('#wc-text-input').val()));

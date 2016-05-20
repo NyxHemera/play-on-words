@@ -33,6 +33,7 @@
 }
 .wrap-create > .wc-wrap {
   width: 60vw;
+  background-color: white;
 }
 .wrap-create > .wc-entry-wrap {
   width: 35vw;

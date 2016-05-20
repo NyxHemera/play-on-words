@@ -62,8 +62,13 @@ function generateHTMLWC(wordArr) {
 }
 
 function generateCanvasWC(wordArr) {
-	WordCloud(document.getElementById('wc-canvas'), {
-		list: wordArr
+	$('#wc-canvas').fadeOut(200, function() {
+		$('#wc-canvas').fadeIn(300, function() {
+
+		});
+			WordCloud(document.getElementById('wc-canvas'), {
+				list: wordArr
+			});
 	});
 }
 

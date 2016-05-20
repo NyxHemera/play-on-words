@@ -48,9 +48,15 @@
             </div>
        </body>
       <script type="text/javascript">
-        $('#wc-text-input').on('input', function() {
-          generateWC(getWCArr($('#wc-text-input').val()));
+        $('#wc-text-input').on('keydown', function(e) {
+          console.log(e);
+          if(e.keyCode === 32) {
+            generateWC(getWCArr($('#wc-text-input').val()));
+          }
         });
+        $('#wc-text-input').on('change', function() {
+          generateWC(getWCArr($('#wc-text-input').val()));
+        })
         function fillInputs() {
               var dataURL = document.getElementById('wc-canvas').toDataURL('image/png');
               //$('#wc-image-input').val('http://www.infobarrel.com/media/image/54054.jpg');
